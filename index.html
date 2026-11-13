@@ -144,6 +144,7 @@
   .contact { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
   .contact li { display: grid; grid-template-columns: 6em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
   .contact span:first-child { color: var(--ink-soft); }
+  .about p.note { margin: 16px 0 0; font-size: 0.92rem; color: var(--ink-soft); }
   @media (min-width: 820px) { .about .wrap { grid-template-columns: 1.2fr 1fr; gap: 56px; } }
 
   footer { border-top: 1px solid var(--rule); padding: 20px 0 36px; font-size: 0.85rem; color: var(--ink-soft); }
@@ -179,7 +180,7 @@
           <p>ショートカット、拡大縮小、ツールの切り替え。<br>
 描いている最中の「右手以外」の操作を、左手の手元に集めるためのデバイスです。<br>
 出発点は、イラストレーターの方の原案です。<br>
-多くの絵描きに愛用されながら生産を終えた左手用キーパッドに着想を得て、その配置の考え方を引き継いでいます。<br>
+多くの絵描きに愛用されながら生産を終えた左手用キーパッドの配置を引き継ぎ、そこにダイヤルを加える、という案でした。<br>
 開発には、すこやかむいむい氏の協力をいただきました。</p>
           <p style="margin-top:14px">専用ドライバーは不要で、キーの割り当てはブラウザから変更できます。<br>
 ジョイスティックのモードを切り替えれば、ゲームコントローラーとしても使えます。</p>
@@ -193,12 +194,15 @@
           </div>
         </div>
         <ul class="spec">
+          <li><span>頒布形態</span><span>完成品（はんだ付け、組み立て、ファームウェア書き込み済）<br>
+キースイッチとキーキャップを取り付ければ、接続してすぐ使えます。</span></li>
+          <li><span>推奨</span><span>パームレストと合わせての使用をおすすめします。</span></li>
           <li><span>キー</span><span>ロープロファイルメカニカル 24キー（スイッチ交換対応）</span></li>
           <li><span>操作部</span><span>ジョイスティック、押し込み対応の回転ダイヤル</span></li>
           <li><span>設定</span><span>ブラウザから変更（VIA／Remap／Vial）。割り当ては4パターン保存</span></li>
           <li><span>接続</span><span>USB 有線。iPad（USB-C 搭載機種）でも動作</span></li>
           <li><span>ファームウェア</span><span><a href="https://github.com/kushima8/qmk_firmware">QMK</a>（<a href="https://github.com/kushima8/vial-qmk">Vial</a> にも対応）</span></li>
-          <li><span>設計データ</span><span>CC BY-NC-SA 4.0 で公開</span></li>
+          <li><span>設計データ</span><span>CC BY-NC-SA 4.0</span></li>
         </ul>
       </div>
     </div>
@@ -220,7 +224,10 @@
     <div class="wrap">
       <h2>製品一覧</h2>
       <p>これまでに設計・頒布した入力デバイスです。<br>
-ビルドガイドと設計データは、各製品の GitHub リポジトリにあります。</p>
+ビルドガイドと公開中の設計データは、各製品の GitHub リポジトリにあります。<br>
+GBC24 と HOOK64／HOOK49 は、基本的に完成品の状態でお届けします。<br>
+ここでいう完成品は、はんだ付け、組み立て、ファームウェア書き込みまで済ませた状態のことです。<br>
+そのほかの製品は、はんだ付けが必要な組み立てキットです。</p>
 
       <article class="row">
         <div>
@@ -230,7 +237,9 @@
         </div>
         <div>
           <p class="desc">24キーにジョイスティックと回転ダイヤルを備えた、絵描き向けの左手デバイス。<br>
-ジョイスティックは、別売の Reex トラックボールユニットと交換できます。</p>
+ジョイスティックは、別売の Reex トラックボールユニットと交換できます。<br>
+完成品（はんだ付け、組み立て、ファームウェア書き込み済）<br>
+キースイッチとキーキャップを取り付ければ、接続してすぐ使えます。</p>
           <div class="where">
             <a href="https://github.com/kushima8/GBC24">GitHub</a>
             <a href="https://cyberdeckarsenal.booth.pm/">BOOTH</a>
@@ -252,7 +261,9 @@
           <p class="desc">液晶タブレットの上辺に掛けて使うキーボード。<br>
 描く手を画面から離さずに、文字入力とショートカットができます。<br>
 現在は日本語配列の HOOK64（フルサイズ）と HOOK49（テンキーレス）を頒布しています。<br>
-HOOK69 は頒布を終了しました。</p>
+HOOK69 は頒布を終了しました。<br>
+HOOK64 と HOOK49 は完成品（はんだ付け、組み立て、ファームウェア書き込み済）<br>
+キースイッチとキーキャップを取り付ければ、接続してすぐ使えます。</p>
           <div class="where">
             <a href="https://github.com/kushima8/HOOK64-HOOK49">GitHub（HOOK64 / HOOK49）</a>
             <a href="https://github.com/kushima8/HOOK69">GitHub（HOOK69・頒布終了）</a>
@@ -271,7 +282,8 @@ HOOK69 は頒布を終了しました。</p>
           <p class="desc">左右分割のモジュラーキーボード。<br>
 Reex56 は手の形に沿わせたエルゴノミクス寄りの配列、Reex67 はエンジニア向けの配列です。<br>
 どちらもトラックボールユニットが付属します。<br>
-ReexMod を加えると、キーの拡張やロータリーエンコーダーを追加できます。</p>
+ReexMod を加えると、キーの拡張やロータリーエンコーダーを追加できます。<br>
+はんだ付けが必要な組み立てキットです。</p>
           <div class="where">
             <a href="https://github.com/kushima8/Reex">GitHub</a>
             <a href="https://cyberdeckarsenal.booth.pm/items/4951435">BOOTH（Reex56）</a>
@@ -321,7 +333,7 @@ Re40、Re42、Re64、Re93 を頒布しました。<br>
           <div class="fw">
         <h3>ファームウェア</h3>
         <p>各製品のファームウェアのソースコードは、次のリポジトリで公開しています。<br>
-書き込み済みのファイルと手順は、各製品のリポジトリにあります。</p>
+書き込み用のファイルと手順は、各製品のリポジトリにあります。</p>
         <div class="where">
           <a href="https://github.com/kushima8/qmk_firmware">QMK 版（kushima8/qmk_firmware）</a>
           <a href="https://github.com/kushima8/vial-qmk">Vial 版（kushima8/vial-qmk）</a>
@@ -337,17 +349,25 @@ Re40、Re42、Re64、Re93 を頒布しました。<br>
         <h2>九嶋八（くしま8）</h2>
         <p>自作キーボード作家。<br>
 「電脳甲板工廠」の名前で、入力デバイスを設計し、BOOTH と遊舎工房、同人誌即売会で頒布しています。</p>
-        <p>設計データとファームウェアは公開しています。<br>
+        <p>ファームウェアは公開しています。<br>
+設計データは、頒布中の製品では一部を公開し、頒布を終えた製品ではすべてを公開する予定です。<br>
 気に入らないところには手を入れて、長く使ってもらえたら嬉しいです。</p>
       </div>
-      <ul class="contact">
-        <li><span>X</span><span><a href="https://x.com/kushima8">@kushima8</a></span></li>
-        <li><span>BOOTH</span><span><a href="https://cyberdeckarsenal.booth.pm/">電脳甲板工廠</a></span></li>
-        <li><span>GitHub</span><span><a href="https://github.com/kushima8">kushima8</a></span></li>
-        <!-- 問い合わせ用の専用アドレスを用意したら、下のコメントを外して書き換えてください
-        <li><span>メール</span><span><a href="mailto:example@example.com">example@example.com</a></span></li>
-        -->
-      </ul>
+      <div>
+        <ul class="contact">
+          <li><span>X</span><span><a href="https://x.com/kushima8">@kushima8</a></span></li>
+          <li><span>BOOTH</span><span><a href="https://cyberdeckarsenal.booth.pm/">電脳甲板工廠</a></span></li>
+          <li><span>GitHub</span><span><a href="https://github.com/kushima8">kushima8</a></span></li>
+          <!-- 問い合わせ用の専用アドレスを用意したら、下のコメントを外して書き換えてください
+          <li><span>メール</span><span><a href="mailto:example@example.com">example@example.com</a></span></li>
+          -->
+        </ul>
+        <p class="note">お問い合わせは、X のリプライか DM でお願いします。<br>
+気づくのが遅れたり、見落としたりする場合があります。<br>
+特に、フォロワーでない方からの通知は切っているため、返信にお時間をいただくことがあります。<br>
+フォローしていただいたうえでご連絡いただくと、気づきやすくなります。<br>
+あらかじめご了承ください。</p>
+      </div>
     </div>
   </section>
 
