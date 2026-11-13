@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>電脳甲板工廠 | 九嶋八の入力デバイス</title>
+<meta name="description" content="自作キーボード作家・九嶋八（くしま8）が設計した入力デバイスの一覧。絵描き向け左手デバイス GBC24、液タブに掛けるキーボード HOOK、分割キーボード Reex など。">
+<meta property="og:title" content="電脳甲板工廠 | 九嶋八の入力デバイス">
+<meta property="og:description" content="絵描き向け左手デバイス GBC24 ほか、九嶋八が設計した入力デバイスの一覧。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://github.com/user-attachments/assets/75ac68b8-87aa-4565-b2d3-4ae5b51bb985">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #e8ecef;
+    --panel: #f4f6f7;
+    --ink: #13233a;
+    --ink-soft: #4b5b70;
+    --rule: #b9c3cc;
+    --brass: #8a6412;
+    --brass-bg: #f0e3bf;
+    --ok: #1f6b4a;
+    --off: #6d7783;
+    --sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --paper: #0f1a2a;
+      --panel: #16243a;
+      --ink: #e6ebf0;
+      --ink-soft: #9fb0c2;
+      --rule: #2c3d55;
+      --brass: #e0b95a;
+      --brass-bg: #3a3118;
+      --ok: #6fd0a2;
+      --off: #8493a5;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+  a:hover { color: var(--brass); }
+  a:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+  img { max-width: 100%; height: auto; display: block; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  /* 銘板 */
+  .plate {
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 0;
+  }
+  .plate .wrap {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px;
+  }
+  .mark { font-weight: 900; font-size: 1.15rem; letter-spacing: 0.12em; }
+  .mark small { font-family: var(--mono); font-weight: 400; font-size: 0.78rem; letter-spacing: 0; color: var(--ink-soft); margin-left: 0.8em; }
+  .plate nav { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 0.92rem; }
+
+  /* 新製品 */
+  .lead { padding: 44px 0 56px; }
+  .lead h1 {
+    margin: 0;
+    font-weight: 900;
+    font-size: clamp(3.4rem, 15vw, 8.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+  .lead .kind { margin: 14px 0 0; font-size: clamp(1.05rem, 2.6vw, 1.35rem); font-weight: 700; }
+  .lead figure { margin: 28px 0 0; }
+  .lead figure img { width: 100%; border: 1px solid var(--rule); background: var(--panel); }
+  .lead-body { display: grid; gap: 28px; margin-top: 28px; }
+  .lead-body p { margin: 0; max-width: 34em; }
+  .spec { margin: 0; padding: 0; list-style: none; font-size: 0.95rem; border-top: 1px solid var(--rule); }
+  .spec li { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+  .spec span:first-child { color: var(--ink-soft); }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .btn {
+    display: inline-block; padding: 10px 18px; border: 1px solid var(--ink);
+    text-decoration: none; font-weight: 700; font-size: 0.95rem;
+  }
+  .btn.solid { background: var(--ink); color: var(--paper); }
+  .btn:hover { border-color: var(--brass); color: var(--brass); }
+  .btn.solid:hover { background: var(--brass); color: var(--paper); }
+  .btn.soon, .btn.soon:hover { border-style: dashed; border-color: var(--rule); color: var(--ink-soft); font-weight: 500; cursor: default; }
+  .where .soon { color: var(--ink-soft); }
+  @media (min-width: 820px) {
+    .lead-body { grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+  }
+
+  /* 開発協力イラスト */
+  .collab { background: var(--panel); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 40px 0; }
+  .collab .wrap { display: grid; gap: 24px; align-items: center; }
+  .collab h2 { margin: 0 0 8px; font-size: 1.15rem; }
+  .collab p { margin: 0; max-width: 30em; }
+  .collab img { border: 1px solid var(--rule); }
+  @media (min-width: 820px) { .collab .wrap { grid-template-columns: 1fr 1.3fr; gap: 48px; } }
+
+  /* 製品台帳 */
+  .ledger { padding: 56px 0 24px; }
+  .ledger h2, .about h2 { margin: 0 0 6px; font-size: 1.5rem; font-weight: 900; letter-spacing: 0.04em; }
+  .ledger > .wrap > p { margin: 0 0 24px; color: var(--ink-soft); }
+  .row {
+    display: grid; gap: 14px 28px; padding: 26px 0; border-top: 1px solid var(--rule);
+  }
+  .row:last-child { border-bottom: 1px solid var(--rule); }
+  .row h3 { margin: 0; font-size: 1.6rem; font-weight: 900; line-height: 1.2; }
+  .row .type { margin: 4px 0 0; font-size: 0.92rem; color: var(--ink-soft); }
+  .row p.desc { margin: 0 0 10px; max-width: 36em; }
+  .row .where { font-size: 0.92rem; display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .row .thumb img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid var(--rule); background: var(--panel); }
+  .status {
+    display: inline-block; margin-top: 10px; padding: 2px 10px;
+    font-family: var(--mono); font-size: 0.78rem; border: 1px solid currentColor;
+  }
+  .status.new { color: var(--brass); background: var(--brass-bg); border-color: var(--brass); }
+  .status.on { color: var(--ok); }
+  .status.end { color: var(--off); }
+  @media (min-width: 820px) {
+    .row { grid-template-columns: 220px 1fr 240px; align-items: start; }
+  }
+
+  /* 作者 */
+  .about { padding: 48px 0 64px; }
+  .about .wrap { display: grid; gap: 28px; }
+  .about p { margin: 0 0 12px; max-width: 36em; }
+  .contact { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+  .contact li { display: grid; grid-template-columns: 6em 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .contact span:first-child { color: var(--ink-soft); }
+  @media (min-width: 820px) { .about .wrap { grid-template-columns: 1.2fr 1fr; gap: 56px; } }
+
+  footer { border-top: 1px solid var(--rule); padding: 20px 0 36px; font-size: 0.85rem; color: var(--ink-soft); }
+  footer p { margin: 0 0 4px; }
+</style>
+</head>
+<body>
+
+<header class="plate">
+  <div class="wrap">
+    <div class="mark">電脳甲板工廠<small>kushima8</small></div>
+    <nav aria-label="外部リンク">
+      <a href="https://cyberdeckarsenal.booth.pm/">BOOTH</a>
+      <a href="https://github.com/kushima8">GitHub</a>
+      <a href="https://x.com/kushima8">X</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="lead">
+    <div class="wrap">
+      <h1>GBC24</h1>
+      <p class="kind">絵描きのための、ダイヤル付き左手デバイス</p>
+      <figure>
+        <!-- 画像は GBC24 リポジトリの README と同じものを参照しています。
+             表示が不安定な場合は img フォルダに画像を置き、src を「img/gbc24.jpg」のように書き換えてください。 -->
+        <img src="https://github.com/user-attachments/assets/75ac68b8-87aa-4565-b2d3-4ae5b51bb985" alt="GBC24 本体。24個のキーと、親指側のジョイスティック、回転ダイヤルが並ぶ" width="1920" height="1080">
+      </figure>
+      <div class="lead-body">
+        <div>
+          <p>ショートカット、拡大縮小、ツールの切り替え。<br>
+描いている最中の「右手以外」の操作を、左手の手元に集めるためのデバイスです。<br>
+出発点は、イラストレーターから寄せられた原案です。<br>
+多くの絵描きに愛用されながら生産を終えた左手用キーパッドに着想を得て、その配置の考え方を引き継いでいます。<br>
+開発には、すこやかむいむい氏の協力をいただきました。</p>
+          <p style="margin-top:14px">専用ドライバーは不要で、キーの割り当てはブラウザから変更できます。<br>
+ジョイスティックのモードを切り替えれば、ゲームコントローラーとしても使えます。</p>
+          <div class="links">
+            <!-- 発売後、下の2つを商品ページの URL に差し替えてください -->
+            <a class="btn solid" href="https://cyberdeckarsenal.booth.pm/">BOOTH で見る</a>
+            <!-- 遊舎工房の商品ページができたら、下の行を次の形に差し替えてください：
+                 <a class="btn" href="商品ページのURL">遊舎工房で見る</a> -->
+            <span class="btn soon">遊舎工房（取り扱い予定）</span>
+            <a class="btn" href="https://github.com/kushima8/GBC24">マニュアル・設計データ</a>
+          </div>
+        </div>
+        <ul class="spec">
+          <li><span>キー</span><span>ロープロファイルメカニカル 24キー（スイッチ交換対応）</span></li>
+          <li><span>操作部</span><span>ジョイスティック、押し込み対応の回転ダイヤル</span></li>
+          <li><span>設定</span><span>ブラウザから変更（VIA／Remap／Vial）。割り当ては4パターン保存</span></li>
+          <li><span>接続</span><span>USB 有線。iPad（USB-C 搭載機種）でも動作</span></li>
+          <li><span>ファームウェア</span><span>QMK（Vial にも対応）</span></li>
+          <li><span>設計データ</span><span>CC BY-NC-SA 4.0 で公開</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="collab">
+    <div class="wrap">
+      <div>
+        <h2>開発協力：すこやかむいむい</h2>
+        <p>日々絵を描く立場から開発にご協力をいただきました。<br>
+紹介イラストもご本人の描き下ろしです。</p>
+        <p style="margin-top:10px"><a href="https://x.com/sukoyakamuimui">@sukoyakamuimui</a></p>
+      </div>
+      <img src="https://github.com/user-attachments/assets/3a695b34-dc03-4c14-abc1-19e77574737c" alt="すこやかむいむい氏による GBC24 の紹介イラスト" loading="lazy">
+    </div>
+  </section>
+
+  <section class="ledger">
+    <div class="wrap">
+      <h2>製品一覧</h2>
+      <p>これまでに設計・頒布した入力デバイスです。<br>
+ビルドガイドと設計データは、各製品の GitHub リポジトリにあります。</p>
+
+      <article class="row">
+        <div>
+          <h3>GBC24</h3>
+          <p class="type">左手デバイス</p>
+          <span class="status new">新製品</span>
+        </div>
+        <div>
+          <p class="desc">24キーにジョイスティックと回転ダイヤルを備えた、絵描き向けの左手デバイス。<br>
+ジョイスティックは、別売の Reex トラックボールユニットと交換できます。</p>
+          <div class="where">
+            <a href="https://github.com/kushima8/GBC24">GitHub</a>
+            <a href="https://cyberdeckarsenal.booth.pm/">BOOTH</a>
+            <!-- 商品ページができたら <a href="商品ページのURL">遊舎工房</a> に差し替え -->
+            <span class="soon">遊舎工房（取り扱い予定）</span>
+          </div>
+        </div>
+        <div class="thumb"><img src="https://github.com/user-attachments/assets/75ac68b8-87aa-4565-b2d3-4ae5b51bb985" alt="" loading="lazy"></div>
+      </article>
+
+      <article class="row">
+        <div>
+          <h3>HOOK シリーズ</h3>
+          <p class="type">液晶タブレット用キーボード</p>
+          <!-- 頒布状況に合わせて書き換えてください： on=頒布中 / end=頒布終了 -->
+          <span class="status on">頒布中</span>
+        </div>
+        <div>
+          <p class="desc">液晶タブレットの上辺に掛けて使うキーボード。<br>
+描く手を画面から離さずに、文字入力とショートカットができます。<br>
+現在は日本語配列の HOOK64（フルサイズ）と HOOK49（テンキーレス）を頒布しています。<br>
+HOOK69 は頒布を終了しました。</p>
+          <div class="where">
+            <a href="https://github.com/kushima8/HOOK64-HOOK49">GitHub（HOOK64 / HOOK49）</a>
+            <a href="https://github.com/kushima8/HOOK69">GitHub（HOOK69・頒布終了）</a>
+          </div>
+        </div>
+        <div class="thumb"><img src="https://github.com/user-attachments/assets/1dbdb7ec-5c02-48a3-b1dd-d1223f2cc10b" alt="液晶タブレットの上辺に掛けた HOOK" loading="lazy"></div>
+      </article>
+
+      <article class="row">
+        <div>
+          <h3>Reex シリーズ</h3>
+          <p class="type">分割キーボード</p>
+          <span class="status on">頒布中</span>
+        </div>
+        <div>
+          <p class="desc">左右分割のモジュラーキーボード。<br>
+Reex56 は手の形に沿わせたエルゴノミクス寄りの配列、Reex67 はエンジニア向けの配列です。<br>
+どちらもトラックボールユニットが付属します。<br>
+ReexMod を加えると、キーの拡張やロータリーエンコーダーを追加できます。</p>
+          <div class="where">
+            <a href="https://github.com/kushima8/Reex">GitHub</a>
+            <a href="https://cyberdeckarsenal.booth.pm/items/4951435">BOOTH（Reex56）</a>
+            <a href="https://cyberdeckarsenal.booth.pm/items/4951447">BOOTH（Reex67）</a>
+            <a href="https://booth.pm/ja/items/5617509">BOOTH（ReexMod）</a>
+            <a href="https://shop.yushakobo.jp/products/7793">遊舎工房（Reex56）</a>
+            <a href="https://shop.yushakobo.jp/products/7930">遊舎工房（Reex67）</a>
+          </div>
+        </div>
+        <div class="thumb"><img src="https://github.com/kushima8/Reex/assets/58157342/7abb2f23-e5d2-43d9-a5a9-e36094478a6b" alt="Reex の外観" loading="lazy"></div>
+      </article>
+
+      <article class="row">
+        <div>
+          <h3>Reex トラックボールユニット</h3>
+          <p class="type">トラックボールモジュール</p>
+          <span class="status on">頒布中</span>
+        </div>
+        <div>
+          <p class="desc">PMW3360 センサーを使ったトラックボールユニット。<br>
+Reex への増設用で、Reex には最大4つまで取り付けられます。<br>
+GBC24 では、ジョイスティックと交換して取り付けられます。<br>
+基板とケースの設計データも公開しています。</p>
+          <div class="where">
+            <a href="https://cyberdeckarsenal.booth.pm/items/4773963">BOOTH</a>
+            <a href="https://github.com/kushima8/PMW3360">GitHub</a>
+          </div>
+        </div>
+        <div class="thumb"><img src="https://user-images.githubusercontent.com/58157342/185282034-b1b37cc1-6474-4baf-a6f9-b1038cea2af9.jpg" alt="Reex トラックボールユニットのセンサー基板" loading="lazy"></div>
+      </article>
+
+      <article class="row">
+        <div>
+          <h3>Re シリーズ</h3>
+          <p class="type">分割キーボード</p>
+          <span class="status end">頒布終了</span>
+        </div>
+        <div>
+          <p class="desc">ロータリーエンコーダーを載せた分割キーボード。<br>
+Re40、Re42、Re64、Re93 を頒布しました。<br>
+ビルドガイドと基板データは引き続き公開しています。</p>
+          <div class="where">
+            <a href="https://github.com/kushima8/Re">GitHub</a>
+          </div>
+        </div>
+        <div class="thumb"><img src="https://user-images.githubusercontent.com/58157342/89754003-38164080-db15-11ea-95b6-936866eccc6a.JPG" alt="Re40 と Re64" loading="lazy"></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap">
+      <div>
+        <h2>九嶋八（くしま8）</h2>
+        <p>自作キーボード作家。<br>
+「電脳甲板工廠」の名前で、入力デバイスを設計し、BOOTH と遊舎工房、同人誌即売会で頒布しています。</p>
+        <p>設計データとファームウェアは公開しています。<br>
+気に入らないところには手を入れて、長く使ってもらえたら嬉しいです。</p>
+      </div>
+      <ul class="contact">
+        <li><span>X</span><span><a href="https://x.com/kushima8">@kushima8</a></span></li>
+        <li><span>BOOTH</span><span><a href="https://cyberdeckarsenal.booth.pm/">電脳甲板工廠</a></span></li>
+        <li><span>GitHub</span><span><a href="https://github.com/kushima8">kushima8</a></span></li>
+        <!-- 問い合わせ用の専用アドレスを用意したら、下のコメントを外して書き換えてください
+        <li><span>メール</span><span><a href="mailto:example@example.com">example@example.com</a></span></li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>設計データは各リポジトリのライセンス（CC BY-NC-SA 4.0）に従ってご利用ください。</p>
+    <p>© 電脳甲板工廠 / kushima8</p>
+  </div>
+</footer>
+
+</body>
+</html>
