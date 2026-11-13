@@ -132,6 +132,11 @@
     .row { grid-template-columns: 220px 1fr 240px; align-items: start; }
   }
 
+  .fw { margin-top: 36px; padding: 22px 24px; background: var(--panel); border: 1px solid var(--rule); }
+  .fw h3 { margin: 0 0 6px; font-size: 1.1rem; }
+  .fw p { margin: 0 0 10px; }
+  .fw .where { font-size: 0.92rem; display: flex; flex-wrap: wrap; gap: 4px 18px; }
+
   /* 作者 */
   .about { padding: 48px 0 64px; }
   .about .wrap { display: grid; gap: 28px; }
@@ -192,7 +197,7 @@
           <li><span>操作部</span><span>ジョイスティック、押し込み対応の回転ダイヤル</span></li>
           <li><span>設定</span><span>ブラウザから変更（VIA／Remap／Vial）。割り当ては4パターン保存</span></li>
           <li><span>接続</span><span>USB 有線。iPad（USB-C 搭載機種）でも動作</span></li>
-          <li><span>ファームウェア</span><span>QMK（Vial にも対応）</span></li>
+          <li><span>ファームウェア</span><span><a href="https://github.com/kushima8/qmk_firmware">QMK</a>（<a href="https://github.com/kushima8/vial-qmk">Vial</a> にも対応）</span></li>
           <li><span>設計データ</span><span>CC BY-NC-SA 4.0 で公開</span></li>
         </ul>
       </div>
@@ -312,6 +317,16 @@ Re40、Re42、Re64、Re93 を頒布しました。<br>
         </div>
         <div class="thumb"><img src="https://user-images.githubusercontent.com/58157342/89754003-38164080-db15-11ea-95b6-936866eccc6a.JPG" alt="Re40 と Re64" loading="lazy"></div>
       </article>
+
+          <div class="fw">
+        <h3>ファームウェア</h3>
+        <p>各製品のファームウェアのソースコードは、次のリポジトリで公開しています。<br>
+書き込み済みのファイルと手順は、各製品のリポジトリにあります。</p>
+        <div class="where">
+          <a href="https://github.com/kushima8/qmk_firmware">QMK 版（kushima8/qmk_firmware）</a>
+          <a href="https://github.com/kushima8/vial-qmk">Vial 版（kushima8/vial-qmk）</a>
+        </div>
+      </div>
 
     </div>
   </section>
