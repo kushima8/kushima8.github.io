@@ -1182,9 +1182,9 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     mkLabel('カード 85.6×54mm',P(-40,-68,4),'cmp');mkLabel('スマートフォン 約147×72mm',P(-140,-18,12),'cmp');
   })();
   function flyTo(p,t){var k=(stage.clientWidth/stage.clientHeight<0.8)?1.32:1;cur='';anim={t:0,p0:camera.position.clone(),t0:controls.target.clone(),p1:new THREE.Vector3(p[0]*k,p[1]*k,p[2]*k),t1:new THREE.Vector3(t[0],t[1],t[2])};}
-  var NOTE={kit:'届く状態の一式です（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートなどを本体に取り付けた状態でお届けする場合があります。',palm:'L字の内側にパームレストを置いた例です（パームレストは別売り）。',dim:'設計上の寸法です。3Dプリント品のため、個体により多少の差があります。高さにゴム足は含みません。',cmp:'カードとスマートフォンを並べた、大きさの目安です。',knob:{cyl:'40mm 円柱型ノブを付けた状態です。',step:'25mm すり鉢型ノブを付けた状態です。',bowl:'46mm 段付き型ノブを付けた状態です。',none:'ノブを外した状態です。ロータリーエンコーダの軸が見えます。'}};
+  var NOTE={kit:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートなどを本体に取り付けた状態でお届けする場合があります。',palm:'L字の内側にパームレストを置いた例（パームレストは別途用意）',dim:'設計上の寸法。3Dプリント品のため、個体により多少の差あり。高さにゴム足は含まず',cmp:'カードとスマートフォンを並べた、大きさの目安',knob:{cyl:'40mm 円柱型ノブを付けた状態',step:'25mm すり鉢型ノブを付けた状態',bowl:'46mm 段付き型ノブを付けた状態',none:'ノブを外した状態。見えているのはロータリーエンコーダの軸'}};
   function say(t){document.getElementById('note').textContent=t;}
-  function baseNote(){if(state.kit)return NOTE.kit;if(state.sw&&state.caps)return 'キースイッチとキーキャップを付けた状態です（どちらも別売り）。';if(state.sw)return 'キースイッチだけを付けた状態です（キースイッチは別売り）。';return 'キースイッチを付ける前の状態です。';}
+  function baseNote(){if(state.kit)return NOTE.kit;if(state.sw&&state.caps)return 'キースイッチとキーキャップを付けた状態（どちらも別途用意）';if(state.sw)return 'キースイッチだけを付けた状態（キースイッチは別途用意）';return 'キースイッチを付ける前の状態';}
 
   // ---- 各部の名称
   var partSel=-1,partItems=[],SVGNS='http://www.w3.org/2000/svg';
@@ -1246,12 +1246,12 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     sync();
   }
   var shots=[
-    {id:'all',label:'全体',pos:[-285,355,425],tgt:[0,6,22],set:{sw:true,caps:true,palm:false,kit:false},note:'キースイッチとキーキャップを付けた状態です（どちらも別売り）。'},
-    {id:'top',label:'真上',pos:[0,760,19],tgt:[0,0,18],set:{sw:true,caps:true,palm:false,kit:false},note:'24個のキーと、ジョイスティック、ダイヤルの配置です。'},
-    {id:'back',label:'奥側とUSB端子',pos:[200,130,-470],tgt:[8,8,6],set:{sw:true,caps:true,palm:false,kit:false},note:'USB Type-C端子は奥の側面にあり、正面から見て右寄りです。'},
-    {id:'side',label:'左側面',pos:[-520,60,56],tgt:[0,10,16],set:{sw:true,caps:true,palm:false,kit:false},note:'キー部は、手前に向かって高くなるように傾いています。'},
-    {id:'use',label:'使用例',pos:[-330,380,500],tgt:[-14,6,44],set:{sw:true,caps:true,palm:true,kit:false},note:'L字の内側にパームレストを置いた例です（パームレストは別売り）。'},
-    {id:'kit',label:'届く状態',pos:[90,900,480],tgt:[30,0,44],set:{sw:false,caps:false,palm:false,kit:true},note:'届く状態の一式です（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートなどを本体に取り付けた状態でお届けする場合があります。'}
+    {id:'all',label:'全体',pos:[-285,355,425],tgt:[0,6,22],set:{sw:true,caps:true,palm:false,kit:false},note:'キースイッチとキーキャップを付けた状態（どちらも別途用意）'},
+    {id:'top',label:'真上',pos:[0,760,19],tgt:[0,0,18],set:{sw:true,caps:true,palm:false,kit:false},note:'24個のキーと、ジョイスティック、ダイヤルの配置'},
+    {id:'back',label:'奥側とUSB端子',pos:[200,130,-470],tgt:[8,8,6],set:{sw:true,caps:true,palm:false,kit:false},note:'USB Type-C端子は奥の側面、正面から見て右寄り'},
+    {id:'side',label:'左側面',pos:[-520,60,56],tgt:[0,10,16],set:{sw:true,caps:true,palm:false,kit:false},note:'手前に向かって高くなる、キー部の傾き'},
+    {id:'use',label:'使用例',pos:[-330,380,500],tgt:[-14,6,44],set:{sw:true,caps:true,palm:true,kit:false},note:'L字の内側にパームレストを置いた例（パームレストは別途用意）'},
+    {id:'kit',label:'届く状態',pos:[90,900,480],tgt:[30,0,44],set:{sw:false,caps:false,palm:false,kit:true},note:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートなどを本体に取り付けた状態でお届けする場合があります。'}
   ];
   var cur='all',anim=null;
   function go(s){
@@ -1266,7 +1266,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   var chips=[];
   shots.forEach(function(s){chips.push(chip(document.getElementById('shots'),s.label,function(){go(s);},function(){return cur===s.id;}));});
   var o=document.getElementById('opts');
-  chips.push(chip(o,'各部の名称',function(){state.parts=!state.parts;if(state.parts){state.kit=false;state.dim=false;state.cmp=false;state.palm=false;state.sw=true;state.caps=true;if(state.knob==='none')state.knob='cyl';selPart(-1);flyTo([-285,355,425],[0,6,22]);say('番号は一覧と対応しています。一覧の項目か番号を押すと、その場所を示します。');}else{say(baseNote());}apply();},function(){return state.parts;}));
+  chips.push(chip(o,'各部の名称',function(){state.parts=!state.parts;if(state.parts){state.kit=false;state.dim=false;state.cmp=false;state.palm=false;state.sw=true;state.caps=true;if(state.knob==='none')state.knob='cyl';selPart(-1);flyTo([-285,355,425],[0,6,22]);say('番号は一覧と対応。一覧の項目か番号を押すと、その場所を表示');}else{say(baseNote());}apply();},function(){return state.parts;}));
   chips.push(chip(o,'キースイッチ',function(){if(state.kit){state.kit=false;state.sw=true;}else{state.sw=!state.sw;if(!state.sw)state.caps=false;}say(baseNote());apply();},function(){return state.sw&&!state.kit;}));
   chips.push(chip(o,'キーキャップ',function(){if(state.kit){state.kit=false;state.sw=true;state.caps=true;}else{state.caps=!state.caps;if(state.caps)state.sw=true;}say(baseNote());apply();},function(){return state.caps&&state.sw&&!state.kit;}));
   chips.push(chip(o,'パームレスト',function(){if(state.kit){state.kit=false;state.palm=true;}else{state.palm=!state.palm;}if(state.palm)state.cmp=false;say(state.palm?NOTE.palm:baseNote());apply();},function(){return state.palm&&!state.kit;}));
@@ -1280,7 +1280,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   function resize(){var w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;
     camera.fov=(w/h<1)?26/Math.max(w/h,0.55)*0.95:26;camera.updateProjectionMatrix();}
   window.addEventListener('resize',resize);resize();
-  camera.position.set(0,0,0);go(shots[0]);if(state.parts)say('番号は一覧と対応しています。一覧の項目か番号を押すと、その場所を示します。');
+  camera.position.set(0,0,0);go(shots[0]);if(state.parts)say('番号は一覧と対応。一覧の項目か番号を押すと、その場所を表示');
   function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;}
   function tick(){
     if(anim){if(!anim.s){anim.s=performance.now();anim.a=new THREE.Spherical().setFromVector3(anim.p0.clone().sub(anim.t0));anim.b=new THREE.Spherical().setFromVector3(anim.p1.clone().sub(anim.t1));anim.d=anim.b.theta-anim.a.theta;if(anim.d>Math.PI)anim.d-=2*Math.PI;if(anim.d<-Math.PI)anim.d+=2*Math.PI;}anim.t=Math.min(1,(performance.now()-anim.s)/750);var e=ease(anim.t);controls.target.lerpVectors(anim.t0,anim.t1,e);camera.position.setFromSpherical(new THREE.Spherical(anim.a.radius+(anim.b.radius-anim.a.radius)*e,anim.a.phi+(anim.b.phi-anim.a.phi)*e,anim.a.theta+anim.d*e)).add(controls.target);if(anim.t>=1)anim=null;}
