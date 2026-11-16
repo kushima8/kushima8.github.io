@@ -109,6 +109,8 @@
   .btn.solid:hover { background: var(--brass); color: var(--paper); }
   .btn.soon, .btn.soon:hover { border-style: dashed; border-color: var(--rule); color: var(--ink-soft); font-weight: 500; cursor: default; }
   .where .soon { color: var(--ink-soft); }
+.links .grp { display: flex; flex-wrap: wrap; gap: 10px; flex-basis: 100%; }
+.where .grp { display: flex; flex-wrap: wrap; gap: 4px 18px; flex-basis: 100%; }
   .lead-body p.before { margin-top: 16px; font-size: 0.92rem; padding: 10px 14px; border-left: 3px solid var(--brass); background: var(--panel); }
   @media (min-width: 820px) {
     .lead-body { grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
@@ -199,13 +201,17 @@
           <p style="margin-top:14px">専用ドライバーは不要で、キーの割り当てはブラウザから変更できます。<br>
 ジョイスティックのモードを切り替えれば、ゲームコントローラーとしても使えます。</p>
           <div class="links">
+            <div class="grp">
             <!-- 発売後、下の2つを商品ページの URL に差し替えてください -->
             <a class="btn solid" href="https://cyberdeckarsenal.booth.pm/">BOOTH で見る</a>
             <!-- 遊舎工房の商品ページができたら、下の行を次の形に差し替えてください：
                  <a class="btn" href="商品ページのURL">遊舎工房で見る</a> -->
             <span class="btn soon">遊舎工房（取り扱い予定）</span>
+            </div>
+            <div class="grp">
             <a class="btn" href="gbc24_3d_viewer.html">3D で見る</a>
             <a class="btn" href="https://github.com/kushima8/GBC24">マニュアル・設計データ</a>
+            </div>
           </div>
           <p class="before">ご購入の前に、<a href="https://github.com/kushima8/GBC24">ビルドガイド</a>を必ずお読みください。</p>
         </div>
@@ -258,11 +264,15 @@ GBC24 と HOOK64／HOOK49 は、基本的に完成品の状態でお届けしま
 完成品（はんだ付け、組み立て、ファームウェア書き込み済）<br>
 キースイッチとキーキャップを取り付ければ、接続してすぐ使えます。</p>
           <div class="where">
-            <a href="https://github.com/kushima8/GBC24">GitHub</a>
-            <a href="gbc24_3d_viewer.html">3D ビューア</a>
+            <div class="grp">
             <a href="https://cyberdeckarsenal.booth.pm/">BOOTH</a>
             <!-- 商品ページができたら <a href="商品ページのURL">遊舎工房</a> に差し替え -->
             <span class="soon">遊舎工房（取り扱い予定）</span>
+            </div>
+            <div class="grp">
+            <a href="https://github.com/kushima8/GBC24">GitHub</a>
+            <a href="gbc24_3d_viewer.html">3D ビューア</a>
+            </div>
           </div>
         </div>
         <div class="thumb"><img src="https://github.com/user-attachments/assets/75ac68b8-87aa-4565-b2d3-4ae5b51bb985" alt="" loading="lazy"></div>
@@ -303,10 +313,14 @@ Reex56 は手の形に沿わせたエルゴノミクス寄りの配列、Reex67 
 ReexMod を加えると、キーの拡張やロータリーエンコーダーを追加できます。<br>
 はんだ付けが必要な組み立てキットです。</p>
           <div class="where">
-            <a href="https://github.com/kushima8/Reex">GitHub</a>
+            <div class="grp">
             <a href="https://cyberdeckarsenal.booth.pm/items/4951435">BOOTH（Reex56）</a>
             <a href="https://cyberdeckarsenal.booth.pm/items/4951447">BOOTH（Reex67）</a>
             <a href="https://booth.pm/ja/items/5617509">BOOTH（ReexMod）</a>
+            </div>
+            <div class="grp">
+            <a href="https://github.com/kushima8/Reex">GitHub</a>
+            </div>
           </div>
         </div>
         <div class="thumb"><img src="https://github.com/kushima8/Reex/assets/58157342/7abb2f23-e5d2-43d9-a5a9-e36094478a6b" alt="Reex の外観" loading="lazy"></div>
