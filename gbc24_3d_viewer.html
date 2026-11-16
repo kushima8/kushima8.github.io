@@ -1182,7 +1182,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     mkLabel('カード 85.6×54 mm',P(-40,-68,4),'cmp');mkLabel('スマートフォン 約147×72 mm',P(-140,-18,12),'cmp');
   })();
   function flyTo(p,t){var k=(stage.clientWidth/stage.clientHeight<0.8)?1.32:1;cur='';anim={t:0,p0:camera.position.clone(),t0:controls.target.clone(),p1:new THREE.Vector3(p[0]*k,p[1]*k,p[2]*k),t1:new THREE.Vector3(t[0],t[1],t[2])};}
-  var NOTE={kit:'届く状態の一式。本体、トッププレート2枚、ノブ3種',palm:'L字の内側にパームレストを置いた例（パームレストは別売り）',dim:'設計上の寸法です。3Dプリント品のため、個体により多少の差があります（高さはゴム足を除く）',cmp:'カードとスマートフォンを並べた大きさの目安',knob:{cyl:'40mm 円柱型ノブを付けた状態',step:'25mm すり鉢型ノブを付けた状態',bowl:'46mm 段付き型ノブを付けた状態',none:'ノブを外した状態。ロータリーエンコーダの軸が見えます'}};
+  var NOTE={kit:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合でプレートなどが本体に装着、固定されていることがございます',palm:'L字の内側にパームレストを置いた例（パームレストは別売り）',dim:'設計上の寸法です。3Dプリント品のため、個体により多少の差があります（高さはゴム足を除く）',cmp:'カードとスマートフォンを並べた大きさの目安',knob:{cyl:'40mm 円柱型ノブを付けた状態',step:'25mm すり鉢型ノブを付けた状態',bowl:'46mm 段付き型ノブを付けた状態',none:'ノブを外した状態。ロータリーエンコーダの軸が見えます'}};
   function say(t){document.getElementById('note').textContent=t;}
   function baseNote(){if(state.kit)return NOTE.kit;if(state.sw&&state.caps)return 'キースイッチとキーキャップを付けた状態（どちらも別売り）';if(state.sw)return 'キースイッチだけを付けた状態（キースイッチは別売り）';return 'キースイッチを付ける前の状態';}
 
@@ -1251,7 +1251,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     {id:'back',label:'奥側とUSB',pos:[200,130,-470],tgt:[8,8,6],set:{sw:true,caps:true,palm:false,kit:false},note:'USB Type-C端子は、奥側の右寄りにあります'},
     {id:'side',label:'左側面',pos:[-520,60,56],tgt:[0,10,16],set:{sw:true,caps:true,palm:false,kit:false},note:'キー部は、手前に向かって高くなるように傾いています'},
     {id:'use',label:'パームレスト',pos:[-330,380,500],tgt:[-14,6,44],set:{sw:true,caps:true,palm:true,kit:false},note:'L字の内側にパームレストを置いた例（パームレストは別売り）'},
-    {id:'kit',label:'届く状態',pos:[90,900,480],tgt:[30,0,44],set:{sw:false,caps:false,palm:false,kit:true},note:'届く状態の一式。本体、トッププレート2枚、ノブ3種'}
+    {id:'kit',label:'届く状態',pos:[90,900,480],tgt:[30,0,44],set:{sw:false,caps:false,palm:false,kit:true},note:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合でプレートなどが本体に装着、固定されていることがございます'}
   ];
   var cur='all',anim=null;
   function go(s){
