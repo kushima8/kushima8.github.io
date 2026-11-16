@@ -1208,7 +1208,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     var dots=anchors.map(function(){var c=document.createElementNS(SVGNS,'circle');c.setAttribute('r','3');lead.appendChild(c);return c;});
     var d=document.createElement('div');d.className='tag part';var s1=document.createElement('span');s1.className='no';s1.textContent=String(i+1);var s2=document.createElement('span');s2.className='nm';s2.textContent='　'+p[0];d.appendChild(s1);d.appendChild(s2);d.setAttribute('aria-label',(i+1)+' '+p[0]);d.setAttribute('role','button');d.tabIndex=0;stage.appendChild(d);
     var li=document.createElement('li');li.tabIndex=0;var n=document.createElement('span');n.className='n';n.textContent=String(i+1);var nm=document.createElement('b');nm.textContent=p[0];var ds=document.createElement('p');ds.textContent=p[3];li.appendChild(n);li.appendChild(nm);li.appendChild(ds);plist.appendChild(li);
-    function pick(fromModel){selPart(i);if(fromModel&&li.scrollIntoView)li.scrollIntoView({block:'nearest'});if(p[5]==='back')flyTo([200,150,-430],[30,8,0]);}
+    function pick(fromModel){selPart(i);apply();if(fromModel&&li.scrollIntoView)li.scrollIntoView({block:'nearest'});if(p[5]==='back')flyTo([200,150,-430],[30,8,0]);}
     d.addEventListener('click',function(){pick(true);});d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(true);}});
     li.addEventListener('click',function(){pick(false);});li.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(false);}});
     partItems.push({el:d,li:li,anchors:anchors,b:P(p[2][0],p[2][1],p[2][2]),lines:lines,dots:dots});
@@ -1235,13 +1235,13 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   }
   var tv=new THREE.Vector3();
   function updLabels(){var w=stage.clientWidth,h=stage.clientHeight;labels.forEach(function(o){var on=(o.grp==='dim'?state.dim:state.cmp)&&!state.kit;if(on){tv.copy(o.pos).project(camera);if(tv.z>1)on=false;}if(!on){o.el.style.display='none';return;}o.el.style.display='block';o.el.style.transform='translate(-50%,-50%) translate('+((tv.x+1)/2*w).toFixed(1)+'px,'+((1-tv.y)/2*h).toFixed(1)+'px)';});}
-  var state={sw:true,caps:true,palm:false,kit:false,cover:true,knob:'cyl',dim:false,cmp:false,parts:false};
+  var state={sw:true,caps:true,palm:false,kit:false,cover:true,knob:'cyl',dim:false,cmp:false,parts:true};
   function apply(){
     function vis(tag,on){(byTag[tag]||[]).forEach(function(m){m.visible=on;});}
     vis('asm',!state.kit);vis('kit',state.kit);vis('sw',state.sw&&!state.kit);vis('caps',state.caps&&state.sw&&!state.kit);vis('palm',state.palm&&!state.kit);vis('cover',state.cover);
     var slot=0;['cyl','step','bowl'].forEach(function(k){var on=state.knob===k;(byTag['knob_'+k]||[]).forEach(function(m){if(on){m.visible=true;m.position.set(0,0,0);}else if(state.kit){m.visible=true;m.position.set(122+slot*52-data.meta.enc[0],-(5+data.meta.kz),-(36-data.meta.enc[1]));}else{m.visible=false;}});if(!on)slot++;});(byTag.kit||[]).forEach(function(m){if(m.name.indexOf('kit_knob_')===0)m.visible=false;});
     if(state.parts&&(state.kit||state.dim||state.cmp||state.palm||!state.sw||!state.caps||state.knob==='none'))state.parts=false;if(!state.parts)selPart(-1);
-    plist.hidden=!state.parts;document.body.classList.toggle('parts',state.parts);(byTag.cover||[]).forEach(function(m){m.material.transparent=state.parts;m.material.opacity=state.parts?0.28:1;m.material.depthWrite=!state.parts;m.castShadow=!state.parts;m.material.needsUpdate=true;});
+    plist.hidden=!state.parts;document.body.classList.toggle('parts',state.parts);var see=state.parts&&(partSel===4||partSel===5);(byTag.cover||[]).forEach(function(m){m.material.transparent=see;m.material.opacity=see?0.28:1;m.material.depthWrite=!see;m.castShadow=!see;m.material.needsUpdate=true;});
     if(cur==='kit'&&!state.kit)cur='';dimG.visible=state.dim&&!state.kit;cmpG.visible=state.cmp&&!state.kit;
     sync();
   }
@@ -1266,13 +1266,13 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   var chips=[];
   shots.forEach(function(s){chips.push(chip(document.getElementById('shots'),s.label,function(){go(s);},function(){return cur===s.id;}));});
   var o=document.getElementById('opts');
+  chips.push(chip(o,'各部の名称',function(){state.parts=!state.parts;if(state.parts){state.kit=false;state.dim=false;state.cmp=false;state.palm=false;state.sw=true;state.caps=true;if(state.knob==='none')state.knob='cyl';selPart(-1);flyTo([-285,355,425],[0,6,22]);say('番号は下の一覧と対応しています。一覧や名前を押すと、その場所を示します');}else{say(baseNote());}apply();},function(){return state.parts;}));
   chips.push(chip(o,'キースイッチ',function(){if(state.kit){state.kit=false;state.sw=true;}else{state.sw=!state.sw;if(!state.sw)state.caps=false;}say(baseNote());apply();},function(){return state.sw&&!state.kit;}));
   chips.push(chip(o,'キーキャップ',function(){if(state.kit){state.kit=false;state.sw=true;state.caps=true;}else{state.caps=!state.caps;if(state.caps)state.sw=true;}say(baseNote());apply();},function(){return state.caps&&state.sw&&!state.kit;}));
   chips.push(chip(o,'パームレスト',function(){if(state.kit){state.kit=false;state.palm=true;}else{state.palm=!state.palm;}if(state.palm)state.cmp=false;say(state.palm?NOTE.palm:baseNote());apply();},function(){return state.palm&&!state.kit;}));
   chips.push(chip(o,'一式を並べる',function(){state.kit=!state.kit;if(state.kit){state.dim=false;state.cmp=false;}say(baseNote());apply();},function(){return state.kit;}));
   chips.push(chip(o,'寸法',function(){var wasKit=state.kit;if(wasKit){state.kit=false;state.dim=true;}else{state.dim=!state.dim;}if(state.dim){if(state.knob==='none')state.knob='cyl';if(wasKit||stage.clientWidth/stage.clientHeight<0.8)flyTo(state.cmp?[-340,480,540]:[-285,355,425],state.cmp?[-45,0,22]:[0,6,22]);}say(state.dim?NOTE.dim:baseNote());apply();},function(){return state.dim&&!state.kit;}));
   chips.push(chip(o,'サイズ比較',function(){if(state.kit){state.kit=false;state.cmp=true;}else{state.cmp=!state.cmp;}if(state.cmp){state.palm=false;flyTo([-340,480,540],[-45,0,22]);}say(state.cmp?NOTE.cmp:baseNote());apply();},function(){return state.cmp&&!state.kit;}));
-  chips.push(chip(o,'各部の名称',function(){state.parts=!state.parts;if(state.parts){state.kit=false;state.dim=false;state.cmp=false;state.palm=false;state.sw=true;state.caps=true;if(state.knob==='none')state.knob='cyl';selPart(-1);flyTo([-285,355,425],[0,6,22]);say('番号は下の一覧と対応しています。一覧や名前を押すと、その場所を示します');}else{say(baseNote());}apply();},function(){return state.parts;}));
   var kn=document.getElementById('knobs');
   [['cyl','40mm 円柱型ノブ'],['step','25mm すり鉢型ノブ'],['bowl','46mm 段付き型ノブ'],['none','外す']].forEach(function(k){chips.push(chip(kn,k[1],function(){state.knob=k[0];if(k[0]==='none')state.dim=false;say(NOTE.knob[k[0]]);apply();},function(){return state.knob===k[0];}));});
   function sync(){chips.forEach(function(b){b.setAttribute('aria-pressed',b._p()?'true':'false');});}
@@ -1280,7 +1280,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   function resize(){var w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;
     camera.fov=(w/h<1)?26/Math.max(w/h,0.55)*0.95:26;camera.updateProjectionMatrix();}
   window.addEventListener('resize',resize);resize();
-  camera.position.set(0,0,0);go(shots[0]);
+  camera.position.set(0,0,0);go(shots[0]);if(state.parts)say('番号は下の一覧と対応しています。一覧や名前を押すと、その場所を示します');
   function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;}
   function tick(){
     if(anim){if(!anim.s){anim.s=performance.now();anim.a=new THREE.Spherical().setFromVector3(anim.p0.clone().sub(anim.t0));anim.b=new THREE.Spherical().setFromVector3(anim.p1.clone().sub(anim.t1));anim.d=anim.b.theta-anim.a.theta;if(anim.d>Math.PI)anim.d-=2*Math.PI;if(anim.d<-Math.PI)anim.d+=2*Math.PI;}anim.t=Math.min(1,(performance.now()-anim.s)/750);var e=ease(anim.t);controls.target.lerpVectors(anim.t0,anim.t1,e);camera.position.setFromSpherical(new THREE.Spherical(anim.a.radius+(anim.b.radius-anim.a.radius)*e,anim.a.phi+(anim.b.phi-anim.a.phi)*e,anim.a.theta+anim.d*e)).add(controls.target);if(anim.t>=1)anim=null;}
