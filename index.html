@@ -8,7 +8,7 @@
 <meta property="og:title" content="電脳甲板工廠 | 九嶋八の入力デバイス">
 <meta property="og:description" content="絵描き向け左手デバイス GBC24 ほか、九嶋八が設計した入力デバイスの一覧。">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://github.com/user-attachments/assets/75ac68b8-87aa-4565-b2d3-4ae5b51bb985">
+<meta property="og:image" content="https://kushima8.github.io/img/gbc24.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
 <!-- Google Search Console -->
@@ -94,6 +94,14 @@
   .lead .kind { margin: 14px 0 0; font-size: clamp(1.05rem, 2.6vw, 1.35rem); font-weight: 700; }
   .lead figure { margin: 28px 0 0; }
   .lead figure img { width: 100%; border: 1px solid var(--rule); background: var(--panel); }
+  .lead figure.shots { display: grid; gap: 14px; align-items: start; }
+  .lead .alt-shot { display: none; }
+  .lead .alt-shot p { margin: 6px 0 0; font-size: 0.8rem; line-height: 1.6; color: var(--ink-soft); }
+  @media (min-width: 820px) {
+    /* 3:2 の写真と正方形の作例を、同じ高さで横に並べる */
+    .lead figure.shots { grid-template-columns: 3fr 2fr; }
+    .lead .alt-shot { display: block; }
+  }
   .lead-body { display: grid; gap: 28px; margin-top: 28px; }
   .lead-body p { margin: 0; max-width: 34em; }
   .spec { margin: 0; padding: 0; list-style: none; font-size: 0.95rem; border-top: 1px solid var(--rule); }
@@ -186,10 +194,16 @@
     <div class="wrap">
       <h1>GBC24</h1>
       <p class="kind">絵描きのための、ダイヤル付き左手デバイス</p>
-      <figure>
-        <!-- 画像は GBC24 リポジトリの README と同じものを参照しています。
-             表示が不安定な場合は img フォルダに画像を置き、src を「img/gbc24.jpg」のように書き換えてください。 -->
-        <img src="https://github.com/user-attachments/assets/75ac68b8-87aa-4565-b2d3-4ae5b51bb985" alt="GBC24 本体。24個のキーと、親指側のジョイスティック、回転ダイヤルが並ぶ" width="1920" height="1080">
+      <figure class="shots">
+        <!-- 画像は img フォルダに置いています。差し替えるときは、同じファイル名で上書きしてください。 -->
+        <img src="img/gbc24.jpg" alt="GBC24 本体。24個のキーと、親指側のジョイスティック、回転ダイヤルが並ぶ" width="1600" height="1067">
+        <!-- 作例の写真は、横に並べる余裕がある画面幅のときだけ表示します。 -->
+        <div class="alt-shot">
+          <img src="img/gbc24_white.jpg" alt="白いケースにトラックボールユニットを付けた GBC24 の作例" width="1200" height="1200" loading="lazy">
+          <p>作例：白いケースと、別売りの<br>
+Reex トラックボールユニットを使用。<br>
+頒布品は黒いケースで、ジョイスティックが付きます。</p>
+        </div>
       </figure>
       <div class="lead-body">
         <div>
@@ -275,7 +289,7 @@ GBC24 と HOOK64／HOOK49 は、基本的に完成品の状態でお届けしま
             </div>
           </div>
         </div>
-        <div class="thumb"><img src="https://github.com/user-attachments/assets/75ac68b8-87aa-4565-b2d3-4ae5b51bb985" alt="" loading="lazy"></div>
+        <div class="thumb"><img src="img/gbc24.jpg" alt="" loading="lazy"></div>
       </article>
 
       <article class="row">
