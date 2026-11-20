@@ -97,6 +97,11 @@
   .lead figure.shots { display: grid; gap: 14px; align-items: start; }
   .lead .alt-shot { display: none; }
   .lead .alt-shot p { margin: 6px 0 0; font-size: 0.8rem; line-height: 1.6; color: var(--ink-soft); }
+  /* 見出し（作例：／頒布品版：）の後ろで2行目以降の頭を揃える */
+  .lead .main-shot p { margin: 6px 0 0; font-size: 0.8rem; line-height: 1.6; color: var(--ink-soft); }
+  .lead .alt-shot p, .lead .main-shot p { display: flex; }
+  .lead .alt-shot p > span:first-child, .lead .main-shot p > span:first-child { flex: none; }
+  .lead .main-shot img { display: block; }
   @media (min-width: 820px) {
     /* 3:2 の写真と正方形の作例を、同じ高さで横に並べる */
     .lead figure.shots { grid-template-columns: 3fr 2fr; }
@@ -145,6 +150,9 @@
   .row p.desc { margin: 0 0 10px; max-width: 36em; }
   .row .where { font-size: 0.92rem; display: flex; flex-wrap: wrap; gap: 4px 18px; }
   .row .thumb img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid var(--rule); background: var(--panel); }
+  .row .thumb figure { margin: 0; }
+  .row .thumb figure + figure { margin-top: 12px; }
+  .row .thumb figcaption { margin-top: 4px; font-family: var(--mono); font-size: 0.78rem; }
   .status {
     display: inline-block; margin-top: 10px; padding: 2px 10px;
     font-family: var(--mono); font-size: 0.78rem; border: 1px solid currentColor;
@@ -196,13 +204,14 @@
       <p class="kind">絵描きのための、ダイヤル付き左手デバイス</p>
       <figure class="shots">
         <!-- 画像は img フォルダに置いています。差し替えるときは、同じファイル名で上書きしてください。 -->
-        <img src="img/gbc24.jpg" alt="GBC24 本体。24個のキーと、親指側のジョイスティック、回転ダイヤルが並ぶ" width="1600" height="1067">
+        <div class="main-shot">
+          <img src="img/gbc24.jpg" alt="GBC24 本体。24個のキーと、親指側のジョイスティック、回転ダイヤルが並ぶ" width="1600" height="1067">
+          <p><span>頒布品版：</span><span>黒いケース・ジョイスティックユニットが付属</span></p>
+        </div>
         <!-- 作例の写真は、横に並べる余裕がある画面幅のときだけ表示します。 -->
         <div class="alt-shot">
           <img src="img/gbc24_white.jpg" alt="白いケースにトラックボールユニットを付けた GBC24 の作例" width="1200" height="1200" loading="lazy">
-          <p>作例：白いケースと、別売りの<br>
-Reex トラックボールユニットを使用。<br>
-頒布品は黒いケースで、ジョイスティックが付きます。</p>
+          <p><span>作例：</span><span>白いケース・別売りのReex トラックボールユニットを使用</span></p>
         </div>
       </figure>
       <div class="lead-body">
@@ -314,7 +323,9 @@ HOOK64 と HOOK49 は完成品（はんだ付け、組み立て、ファーム�
             <a href="https://github.com/kushima8/HOOK69">GitHub（HOOK69・頒布終了）</a>
           </div>
         </div>
-        <div class="thumb"><img src="https://github.com/user-attachments/assets/1dbdb7ec-5c02-48a3-b1dd-d1223f2cc10b" alt="液晶タブレットの上辺に掛けた HOOK" loading="lazy"></div>
+        <div class="thumb">
+          <figure><img src="https://github.com/user-attachments/assets/1dbdb7ec-5c02-48a3-b1dd-d1223f2cc10b" alt="液晶タブレットの上辺に掛けた HOOK64（上）と HOOK49（下）" loading="lazy"><figcaption>上：HOOK64 ／ 下：HOOK49</figcaption></figure>
+        </div>
       </article>
 
       <article class="row">
@@ -340,7 +351,10 @@ ReexMod を加えると、キーの拡張やロータリーエンコーダーを
             </div>
           </div>
         </div>
-        <div class="thumb"><img src="https://github.com/kushima8/Reex/assets/58157342/7abb2f23-e5d2-43d9-a5a9-e36094478a6b" alt="Reex の外観" loading="lazy"></div>
+        <div class="thumb">
+          <figure><img src="https://github.com/user-attachments/assets/ce31ee66-ab58-47e7-b266-4440c4df1737" alt="Reex56Mod の外観" loading="lazy"><figcaption>Reex56Mod</figcaption></figure>
+          <figure><img src="https://github.com/user-attachments/assets/c7987ab7-7416-48ff-affc-c94ee0945c3b" alt="Reex67Mod の外観" loading="lazy"><figcaption>Reex67Mod</figcaption></figure>
+        </div>
       </article>
 
       <article class="row">
@@ -376,7 +390,9 @@ Re40、Re42、Re64、Re93 を頒布しました。<br>
             <a href="https://github.com/kushima8/Re">GitHub</a>
           </div>
         </div>
-        <div class="thumb"><img src="https://user-images.githubusercontent.com/58157342/89754003-38164080-db15-11ea-95b6-936866eccc6a.JPG" alt="Re40 と Re64" loading="lazy"></div>
+        <div class="thumb">
+          <figure><img src="https://user-images.githubusercontent.com/58157342/89754003-38164080-db15-11ea-95b6-936866eccc6a.JPG" alt="Re64（左）と Re40（右）" loading="lazy"><figcaption>左：Re64 ／ 右：Re40</figcaption></figure>
+        </div>
       </article>
 
           <div class="fw">
