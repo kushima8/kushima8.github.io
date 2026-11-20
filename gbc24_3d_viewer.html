@@ -1317,9 +1317,9 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     function sub(t){grp=document.createElement('span');grp.className='grp';cr.appendChild(grp);var s=document.createElement('span');s.className='lab2';s.textContent=t;grp.appendChild(s);}
     function swatch(name,hex,fn,pressed){var b=document.createElement('button');b.type='button';b.className='sw';b.style.background=hex;b.title=name;b.setAttribute('aria-label',name);b.addEventListener('click',fn);grp.appendChild(b);b._p=pressed;chips.push(b);}
     sub('本体');
-    BODY.forEach(function(x){swatch(x[1],x[3]||'#48484A',function(){state.body=x[0];say('本体の色：'+x[1]+(x[0]==='charcoal'?'（現在の頒布色）':'（参考色）。色は参考で、実物とは見え方が異なる場合があります'));apply();},function(){return state.body===x[0];});});
+    BODY.forEach(function(x){swatch(x[1],x[3]||'#2B2B2D',function(){state.body=x[0];say('本体の色：'+x[1]+(x[0]==='charcoal'?'（現在の頒布色）':'（参考色）。色は参考で、実物とは見え方が異なる場合があります'));apply();},function(){return state.body===x[0];});});
     sub('キーキャップ');
-    swatch('ブラック','#525256',function(){state.cap='black';say('キーキャップの色：ブラック');apply();},function(){return state.cap!=='white';});
+    swatch('ブラック','#353538',function(){state.cap='black';say('キーキャップの色：ブラック');apply();},function(){return state.cap!=='white';});
     swatch('ホワイト','#F1F0EC',function(){state.cap='white';say('キーキャップの色：ホワイト（見分けやすいよう、キースイッチは灰色で表示）');apply();},function(){return state.cap==='white';});
   })();
   function sync(){chips.forEach(function(b){b.setAttribute('aria-pressed',b._p()?'true':'false');});}
