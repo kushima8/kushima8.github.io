@@ -37,7 +37,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 #plist li{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:start;align-content:start;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:12.5px;line-height:1.5;color:var(--ink)}
 #plist li .n{grid-row:1 / span 2;width:1.7em;height:1.7em;border-radius:50%;background:var(--chip-on);color:var(--chip-on-ink);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-top:1px}
 #plist li b{font-size:13px}
-#plist li p{grid-column:2;color:var(--ink-soft)}
+#plist li p{grid-column:2;color:var(--ink-soft);white-space:pre-line}
 #plist li.sel{background:var(--chip);outline:1.5px solid var(--accent)}
 #plist li:focus-visible{outline:2px solid var(--accent)}
 @media (min-width:900px){body.parts{display:grid;grid-template-columns:minmax(0,1fr) 360px;grid-template-rows:minmax(0,1fr) auto}body.parts #stage{grid-column:1;grid-row:1}body.parts #plist{grid-column:2;grid-row:1;max-height:none;grid-template-columns:1fr;align-content:start;border-top:0;border-left:1px solid var(--line);padding:12px}body.parts #panel{grid-column:1 / -1;grid-row:2}}
@@ -1192,7 +1192,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   var PARTS=[
     ['キー（22個）',[-20,10,26.6],[-58,64,60],'役割を自由に割り当てられます。割り当ては、4つのレイヤーに分けて切り替えられます。',null,null],
     ['親指側のキー（2個）',[39.75,-68.9,22.1],[4,-116,42],'ほかのキーと同じく、役割を割り当てられます。',[[21.65,-43,22.1]],null],
-    ['ジョイスティック',[52.65,-36.2,31.2],[20,-20,84],'上下左右と押し込みに、別々の機能を割り当てられます。出荷時は、矢印キーとEnterキーです。',null,null],
+    ['ジョイスティック',[52.65,-36.2,31.2],[20,-20,84],'上下左右と押し込みに、別々の機能を割り当てられます。出荷時は、矢印キーとEnterキーです。モジュール式なので、ドリフトやチャタリングが発生しても、容易に交換できます。別売りの Reex トラックボールユニットに差し替えれば、トラックボールとしても使えます。',null,null],
     ['ダイヤル',[70.55,-78.9,33.3],[124,-110,60],'左回転、右回転、押し込みに、別々の機能を割り当てられます。ノブは、上に引き抜いて外せます。形の違う3種類のノブ（円柱型、すり鉢型、段付き型）が付属し、好みのものに付け替えられます。',null,null],
     ['USB Type-C端子',[67.8,54.6,12],[44,150,22],'データ通信に対応したケーブルをつなぎます。抜き差しは、まっすぐ行ってください。',null,'back'],
     ['リセットボタン',[80.1,47.6,15.6],[140,90,50],'ファームウェアを書き込むときに使います。USB Type-C端子の右横、マイコンカバーの下にあります。',null,'back'],
@@ -1207,7 +1207,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     var lines=anchors.map(function(){var l=document.createElementNS(SVGNS,'line');lead.appendChild(l);return l;});
     var dots=anchors.map(function(){var c=document.createElementNS(SVGNS,'circle');c.setAttribute('r','3');lead.appendChild(c);return c;});
     var d=document.createElement('div');d.className='tag part';var s1=document.createElement('span');s1.className='no';s1.textContent=String(i+1);var s2=document.createElement('span');s2.className='nm';s2.textContent='　'+p[0];d.appendChild(s1);d.appendChild(s2);d.setAttribute('aria-label',(i+1)+' '+p[0]);d.setAttribute('role','button');d.tabIndex=0;stage.appendChild(d);
-    var li=document.createElement('li');li.tabIndex=0;var n=document.createElement('span');n.className='n';n.textContent=String(i+1);var nm=document.createElement('b');nm.textContent=p[0];var ds=document.createElement('p');ds.textContent=p[3];li.appendChild(n);li.appendChild(nm);li.appendChild(ds);plist.appendChild(li);
+    var li=document.createElement('li');li.tabIndex=0;var n=document.createElement('span');n.className='n';n.textContent=String(i+1);var nm=document.createElement('b');nm.textContent=p[0];var ds=document.createElement('p');ds.textContent=p[3].split('。').filter(function(x){return x;}).map(function(x){return x+'。';}).join(String.fromCharCode(10));li.appendChild(n);li.appendChild(nm);li.appendChild(ds);plist.appendChild(li);
     function pick(fromModel){selPart(i);apply();if(fromModel&&li.scrollIntoView)li.scrollIntoView({block:'nearest'});if(p[5]==='back')flyTo([200,150,-430],[30,8,0]);}
     d.addEventListener('click',function(){pick(true);});d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(true);}});
     li.addEventListener('click',function(){pick(false);});li.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(false);}});
