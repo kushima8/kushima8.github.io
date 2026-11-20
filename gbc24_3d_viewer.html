@@ -1192,9 +1192,9 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     mkLabel('カード 85.6×54mm',P(-40,-68,4),'cmp');mkLabel('スマートフォン 約147×72mm',P(-140,-18,12),'cmp');
   })();
   function flyTo(p,t){var k=(stage.clientWidth/stage.clientHeight<0.8)?1.32:1;cur='';anim={t:0,p0:camera.position.clone(),t0:controls.target.clone(),p1:new THREE.Vector3(p[0]*k,p[1]*k,p[2]*k),t1:new THREE.Vector3(t[0],t[1],t[2])};}
-  var NOTE={joy:'ジョイスティックを付けた状態（頒布時の構成）',tb25:'ジョイスティックを、別売りの Reex トラックボールユニットに交換した例（直径25mmのボール用ケース）',tb34:'ジョイスティックを、別売りの Reex トラックボールユニットに交換した例（直径34mmのボール用ケース）',kit:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートなどを本体に取り付けた状態でお届けする場合があります。',palm:'L字の内側にパームレストを置いた例（パームレストは別途用意）',dim:'設計上の寸法。3Dプリント品のため、個体により多少の差あり。高さにゴム足は含まず',cmp:'カードとスマートフォンを並べた、大きさの目安',knob:{cyl:'40mm 円柱型ノブを付けた状態',step:'25mm すり鉢型ノブを付けた状態',bowl:'46mm 段付き型ノブを付けた状態',none:'ノブを外した状態。見えているのはロータリーエンコーダの軸'}};
+  var NOTE={joy:'ジョイスティックを付けた状態（頒布時の構成）',tb25:'ジョイスティックを、別売りの Reex トラックボールユニットに交換した例（直径25mmのボール用ケース）',tb34:'ジョイスティックを、別売りの Reex トラックボールユニットに交換した例（直径34mmのボール用ケース）',kit:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートなどを本体に取り付けた状態でお届けする場合があります。',kit2:'本体、トッププレート2枚、ノブ3種を並べた状態',palm:'L字の内側にパームレストを置いた例（パームレストは別途用意）',dim:'設計上の寸法。3Dプリント品のため、個体により多少の差あり。高さにゴム足は含まず',cmp:'カードとスマートフォンを並べた、大きさの目安',knob:{cyl:'40mm 円柱型ノブを付けた状態',step:'25mm すり鉢型ノブを付けた状態',bowl:'46mm 段付き型ノブを付けた状態',none:'ノブを外した状態。見えているのはロータリーエンコーダの軸'}};
   function say(t){var n=document.getElementById('note');n.style.whiteSpace='pre-line';n.textContent=String(t).replace(/。+$/,'').replace(/。/g,String.fromCharCode(10));}   // 説明欄では句点を使わない（文の切れ目は改行）
-  function baseNote(){if(state.kit)return NOTE.kit;if(state.sw&&state.caps)return 'キースイッチとキーキャップを付けた状態（どちらも別途用意）';if(state.sw)return 'キースイッチだけを付けた状態（キースイッチは別途用意）';return 'キースイッチを付ける前の状態';}
+  function baseNote(){if(state.kit)return state.deliv?NOTE.kit:NOTE.kit2;if(state.sw&&state.caps)return 'キースイッチとキーキャップを付けた状態（どちらも別途用意）';if(state.sw)return 'キースイッチだけを付けた状態（キースイッチは別途用意）';return 'キースイッチを付ける前の状態';}
 
   // ---- 各部の名称
   var partSel=-1,partItems=[],SVGNS='http://www.w3.org/2000/svg';
@@ -1250,7 +1250,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   }
   var tv=new THREE.Vector3();
   function updLabels(){var w=stage.clientWidth,h=stage.clientHeight;labels.forEach(function(o){var on=(o.grp==='dim'?state.dim:state.cmp)&&!state.kit&&(!o.cond||o.cond());if(on){tv.copy(o.pos).project(camera);if(tv.z>1)on=false;}if(!on){o.el.style.display='none';return;}o.el.style.display='block';o.el.style.transform='translate(-50%,-50%) translate('+((tv.x+1)/2*w).toFixed(1)+'px,'+((1-tv.y)/2*h).toFixed(1)+'px)';});}
-  var state={sw:true,caps:true,palm:false,kit:false,cover:true,knob:'cyl',dim:false,cmp:false,parts:true,tb:false,tbs:'25',body:'charcoal',cap:'black'};
+  var state={sw:true,caps:true,palm:false,kit:false,cover:true,knob:'cyl',dim:false,cmp:false,parts:true,tb:false,tbs:'25',body:'charcoal',cap:'black',deliv:false};
   // ---- 本体（3Dプリント部品）とキーキャップの色
   // [id, 名前, PLAマットの公式の色コード, 画面で使う色]。チャコールは元のモデルの色のまま描く。
   var BODY=[['charcoal','チャコール','#000000',null,1],['ivory','アイボリーホワイト','#FFFFFF','#E9E7E1',0.36],['ash','アッシュグレー','#9B9EA0','#9B9EA0',0.22],['dblue','ダークブルー','#042F56','#042F56',0.22],['tan','デザートタン','#E8DBB7','#E8DBB7',0.26],['dgreen','ダークグリーン','#68724D','#68724D',0.22],['pink','サクラピンク','#E8AFCF','#E8AFCF',0.26]];
@@ -1258,17 +1258,21 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   // 色を変える部品と、部品ごとの明るさの差（プレートは少し明るく、カバーとノブは少し暗く）
   var PRINTED={case:1,plate_key:1.07,plate_ctrl:1.07,kit_plate_key:1.07,kit_plate_ctrl:1.07,mcu_cover:0.9,joy_cover:0.9,knob_cyl:0.84,knob_step:0.84,knob_bowl:0.84,tb25_case:0.9,tb34_case:0.9,tb_spacer:0.9};
   function paint(){
-    var b=null;BODY.forEach(function(x){if(x[0]===state.body)b=x;});
+    // 視点「届く状態」は、頒布色の黒で表示する。選んでいた色は覚えておき、戻すと元の色に戻る。表示「一式を並べる」では色を変えない。
+    var forced=state.kit&&state.deliv;var bodyId=forced?'charcoal':state.body,capId=forced?'black':state.cap;
+    var b=null;BODY.forEach(function(x){if(x[0]===bodyId)b=x;});
     scene.traverse(function(m){
       if(!m.isMesh||!m.name)return;
+      // 基板は、反射のない材質で濃い黒に描く（画面上で #19191B 前後に見える色）
+      if(/^(pcb_key|pcb_ctrl|pcb_joy|tb_pcb)$/.test(m.name)){if(!m.userData.lam){m.material=new THREE.MeshLambertMaterial({color:new THREE.Color('#111112').convertSRGBToLinear()});m.userData.lam=1;}return;}
       if(!m.userData.c0)m.userData.c0=m.material.color.clone();
       var f=PRINTED[m.name];
       if(f){if(m.userData.r0===undefined)m.userData.r0=m.material.roughness;
         // チャコールは、商品写真の黒に合わせた単色（部品ごとの濃淡なし、反射も抑える）
         if(!b||!b[3]){m.material.color.set('#0b0b0c').convertSRGBToLinear();m.material.roughness=1;}
         else{m.material.color.set(b[3]).convertSRGBToLinear().multiplyScalar(f*b[4]);m.material.roughness=m.userData.r0;}}
-      else if(m.name==='keycaps'){if(m.userData.r0===undefined)m.userData.r0=m.material.roughness;if(state.cap==='white'){m.material.color.set('#E9E8E3').convertSRGBToLinear().multiplyScalar(0.36);m.material.roughness=m.userData.r0;}else{m.material.color.set('#101011').convertSRGBToLinear();m.material.roughness=1;}}
-      else if(m.name==='switches'||m.name==='stems'){if(state.cap==='white')m.material.color.set(m.name==='switches'?'#8C8F95':'#7B7E84').convertSRGBToLinear().multiplyScalar(0.22);else m.material.color.copy(m.userData.c0);}
+      else if(m.name==='keycaps'){if(m.userData.r0===undefined)m.userData.r0=m.material.roughness;if(capId==='white'){m.material.color.set('#E9E8E3').convertSRGBToLinear().multiplyScalar(0.36);m.material.roughness=m.userData.r0;}else{m.material.color.set('#101011').convertSRGBToLinear();m.material.roughness=1;}}
+      else if(m.name==='switches'||m.name==='stems'){if(capId==='white')m.material.color.set(m.name==='switches'?'#8C8F95':'#7B7E84').convertSRGBToLinear().multiplyScalar(0.22);else m.material.color.copy(m.userData.c0);}
     });
   }
   function apply(){
@@ -1290,7 +1294,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   ];
   var cur='all',anim=null;
   function go(s){
-    cur=s.id;Object.keys(s.set).forEach(function(k){state[k]=s.set[k];});if(state.palm)state.cmp=false;if(state.kit){state.dim=false;state.cmp=false;state.tb=false;}apply();
+    cur=s.id;Object.keys(s.set).forEach(function(k){state[k]=s.set[k];});state.deliv=(s.id==='kit');if(state.palm)state.cmp=false;if(state.kit){state.dim=false;state.cmp=false;state.tb=false;}apply();
     say(s.note);
     var p0=camera.position.clone(),t0=controls.target.clone(),p1=new THREE.Vector3().fromArray(s.pos),t1=new THREE.Vector3().fromArray(s.tgt);
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1305,7 +1309,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   chips.push(chip(o,'キースイッチ',function(){if(state.kit){state.kit=false;state.sw=true;}else{state.sw=!state.sw;if(!state.sw)state.caps=false;}say(baseNote());apply();},function(){return state.sw&&!state.kit;}));
   chips.push(chip(o,'キーキャップ',function(){if(state.kit){state.kit=false;state.sw=true;state.caps=true;}else{state.caps=!state.caps;if(state.caps)state.sw=true;}say(baseNote());apply();},function(){return state.caps&&state.sw&&!state.kit;}));
   chips.push(chip(o,'パームレスト',function(){if(state.kit){state.kit=false;state.palm=true;}else{state.palm=!state.palm;}if(state.palm)state.cmp=false;say(state.palm?NOTE.palm:baseNote());apply();},function(){return state.palm&&!state.kit;}));
-  chips.push(chip(o,'一式を並べる',function(){state.kit=!state.kit;if(state.kit){state.dim=false;state.cmp=false;state.tb=false;}say(baseNote());apply();},function(){return state.kit;}));
+  chips.push(chip(o,'一式を並べる',function(){state.kit=!state.kit;state.deliv=false;if(cur==='kit')cur='';if(state.kit){state.dim=false;state.cmp=false;state.tb=false;}say(baseNote());apply();},function(){return state.kit;}));
   chips.push(chip(o,'寸法',function(){var wasKit=state.kit;if(wasKit){state.kit=false;state.dim=true;}else{state.dim=!state.dim;}if(state.dim){if(state.knob==='none')state.knob='cyl';if(wasKit||stage.clientWidth/stage.clientHeight<0.8)flyTo(state.cmp?[-340,480,540]:[-285,355,425],state.cmp?[-45,0,22]:[0,6,22]);}say(state.dim?NOTE.dim:baseNote());apply();},function(){return state.dim&&!state.kit;}));
   chips.push(chip(o,'サイズ比較',function(){if(state.kit){state.kit=false;state.cmp=true;}else{state.cmp=!state.cmp;}if(state.cmp){state.palm=false;flyTo([-340,480,540],[-45,0,22]);}say(state.cmp?NOTE.cmp:baseNote());apply();},function(){return state.cmp&&!state.kit;}));
   var un=document.getElementById('units');chips.push(chip(un,'ジョイスティック',function(){state.tb=false;say(NOTE.joy);apply();},function(){return !state.tb;}));chips.push(chip(un,'トラックボール 25mm',function(){state.tb=true;state.tbs='25';state.kit=false;say(NOTE.tb25);apply();},function(){return !!state.tb&&state.tbs!=='34';}));chips.push(chip(un,'トラックボール 34mm',function(){state.tb=true;state.tbs='34';state.kit=false;say(NOTE.tb34);apply();},function(){return !!state.tb&&state.tbs==='34';}));
@@ -1317,10 +1321,10 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     function sub(t){grp=document.createElement('span');grp.className='grp';cr.appendChild(grp);var s=document.createElement('span');s.className='lab2';s.textContent=t;grp.appendChild(s);}
     function swatch(name,hex,fn,pressed){var b=document.createElement('button');b.type='button';b.className='sw';b.style.background=hex;b.title=name;b.setAttribute('aria-label',name);b.addEventListener('click',fn);grp.appendChild(b);b._p=pressed;chips.push(b);}
     sub('本体');
-    BODY.forEach(function(x){swatch(x[1],x[3]||'#2B2B2D',function(){state.body=x[0];say('本体の色：'+x[1]+(x[0]==='charcoal'?'（現在の頒布色）':'（参考色）'));apply();},function(){return state.body===x[0];});});
+    BODY.forEach(function(x){swatch(x[1],x[3]||'#2B2B2D',function(){if(state.deliv){state.deliv=false;cur='';}state.body=x[0];say('本体の色：'+x[1]+(x[0]==='charcoal'?'（現在の頒布色）':'（参考色）'));apply();},function(){return ((state.kit&&state.deliv)?'charcoal':state.body)===x[0];});});
     sub('キーキャップ');
-    swatch('ブラック','#353538',function(){state.cap='black';say('キーキャップの色：ブラック');apply();},function(){return state.cap!=='white';});
-    swatch('ホワイト','#F1F0EC',function(){state.cap='white';say('キーキャップの色：ホワイト（見分けやすいよう、キースイッチは灰色で表示）');apply();},function(){return state.cap==='white';});
+    swatch('ブラック','#353538',function(){if(state.deliv){state.deliv=false;cur='';}state.cap='black';say('キーキャップの色：ブラック');apply();},function(){return (state.kit&&state.deliv)||state.cap!=='white';});
+    swatch('ホワイト','#F1F0EC',function(){if(state.deliv){state.deliv=false;cur='';}state.cap='white';say('キーキャップの色：ホワイト（見分けやすいよう、キースイッチは灰色で表示）');apply();},function(){return !(state.kit&&state.deliv)&&state.cap==='white';});
   })();
   function sync(){chips.forEach(function(b){b.setAttribute('aria-pressed',b._p()?'true':'false');});}
   controls.addEventListener('start',function(){anim=null;cur='';sync();});
