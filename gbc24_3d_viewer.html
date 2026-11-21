@@ -1192,7 +1192,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     mkLabel('カード 85.6×54mm',P(-40,-68,4),'cmp');mkLabel('スマートフォン 約147×72mm',P(-140,-18,12),'cmp');
   })();
   function flyTo(p,t){var k=(stage.clientWidth/stage.clientHeight<0.8)?1.32:1;cur='';anim={t:0,p0:camera.position.clone(),t0:controls.target.clone(),p1:new THREE.Vector3(p[0]*k,p[1]*k,p[2]*k),t1:new THREE.Vector3(t[0],t[1],t[2])};}
-  var NOTE={joy:'ジョイスティックを付けた状態（頒布時の構成）',tb25:'ジョイスティックを、別売りの Reex トラックボールユニットに交換した例（直径25mmのボール用ケース）',tb34:'ジョイスティックを、別売りの Reex トラックボールユニットに交換した例（直径34mmのボール用ケース）',kit:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートなどを本体に取り付けた状態でお届けする場合があります。',kit2:'本体、トッププレート2枚、ノブ3種を並べた状態',palm:'L字の内側にパームレストを置いた例（パームレストは別途用意）',dim:'設計上の寸法。3Dプリント品のため、個体により多少の差あり。高さにゴム足は含まず',cmp:'カードとスマートフォンを並べた、大きさの目安',knob:{cyl:'40mm 円柱型ノブを付けた状態',step:'25mm すり鉢型ノブを付けた状態',bowl:'46mm 段付き型ノブを付けた状態',none:'ノブを外した状態。見えているのはロータリーエンコーダの軸'}};
+  var NOTE={joy:'ジョイスティックを付けた状態（頒布時の構成）',tb25:'ジョイスティックを、別売りの Reex トラックボールユニットに交換した例（直径25mmのボール用ケース）',tb34:'ジョイスティックを、別売りの Reex トラックボールユニットに交換した例（直径34mmのボール用ケース）',kit:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートやノブを本体に取り付けた状態でお届けする場合があります。',kit2:'本体、トッププレート2枚、ノブ3種を並べた状態',palm:'L字の内側にパームレストを置いた例（パームレストは別途用意）',dim:'設計上の寸法。3Dプリント品のため、個体により多少の差あり。高さにゴム足は含まず',cmp:'カードとスマートフォンを並べた、大きさの目安',knob:{cyl:'40mm 円柱型ノブを付けた状態',step:'25mm すり鉢型ノブを付けた状態',bowl:'46mm 段付き型ノブを付けた状態',none:'ノブを外した状態。見えているのはロータリーエンコーダの軸'}};
   function say(t){var n=document.getElementById('note');n.style.whiteSpace='pre-line';n.textContent=String(t).replace(/。+$/,'').replace(/。/g,String.fromCharCode(10));}   // 説明欄では句点を使わない（文の切れ目は改行）
   function baseNote(){if(state.kit)return state.deliv?NOTE.kit:NOTE.kit2;if(state.sw&&state.caps)return 'キースイッチとキーキャップを付けた状態（どちらも別途用意）';if(state.sw)return 'キースイッチだけを付けた状態（キースイッチは別途用意）';return 'キースイッチを付ける前の状態';}
 
@@ -1290,7 +1290,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     {id:'back',label:'奥側とUSB端子',pos:[200,130,-470],tgt:[8,8,6],set:{sw:true,caps:true,palm:false,kit:false},note:'USB Type-C端子は奥の側面、正面から見て右寄り'},
     {id:'side',label:'左側面',pos:[-520,60,56],tgt:[0,10,16],set:{sw:true,caps:true,palm:false,kit:false},note:'手前に向かって高くなる、キー部の傾き'},
     {id:'use',label:'使用例',pos:[-330,380,500],tgt:[-14,6,44],set:{sw:true,caps:true,palm:true,kit:false},note:'L字の内側にパームレストを置いた例（パームレストは別途用意）'},
-    {id:'kit',label:'届く状態',pos:[90,900,480],tgt:[30,0,44],set:{sw:false,caps:false,palm:false,kit:true},note:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートなどを本体に取り付けた状態でお届けする場合があります。'}
+    {id:'kit',label:'届く状態',pos:[90,900,480],tgt:[30,0,44],set:{sw:false,caps:false,palm:false,kit:true},note:'届く状態の一式（本体、トッププレート2枚、ノブ3種）。梱包の都合により、トッププレートやノブを本体に取り付けた状態でお届けする場合があります。'}
   ];
   var cur='all',anim=null;
   function go(s){
