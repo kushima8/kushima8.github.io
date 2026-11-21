@@ -1185,7 +1185,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     function hline(h){var q=[P(xl,55.1,0),P(xl,55.1,h),P(xl-5,55.1,0),P(xl+5,55.1,0),P(xl-5,55.1,h),P(xl+14,55.1,h)];var s=new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(q),l.material);s.renderOrder=10;dimG.add(s);return s;}
     var HT25=data.meta.tbtop['25'],HT34=data.meta.tbtop['34'];   // トラックボール装着時はボールの上端がいちばん高い
     hJ=hline(H);hT25=hline(HT25);hT34=hline(HT34);
-    mkLabel('幅 約170mm',P(0,yf,0.3),'dim');mkLabel('奥行き 約145mm',P(xr,-17,0.3),'dim');mkLabel('高さ 約33mm',P(xl,55.1,H/2),'dim',function(){return !state.tb;});mkLabel('高さ 約'+Math.round(HT25)+'mm',P(xl,55.1,HT25/2),'dim',function(){return !!state.tb&&state.tbs!=='34';});mkLabel('高さ 約'+Math.round(HT34)+'mm',P(xl,55.1,HT34/2),'dim',function(){return !!state.tb&&state.tbs==='34';});
+    mkLabel('幅 約170mm',P(0,yf,0.3),'dim');mkLabel('奥行き 約145mm',P(xr,-17,0.3),'dim');mkLabel('高さ 約33mm',P(xl,55.1,H/2),'dim',function(){return !tbOn();});mkLabel('高さ 約'+Math.round(HT25)+'mm',P(xl,55.1,HT25/2),'dim',function(){return tbOn()&&state.tbs!=='34';});mkLabel('高さ 約'+Math.round(HT34)+'mm',P(xl,55.1,HT34/2),'dim',function(){return tbOn()&&state.tbs==='34';});
     function slab(w,d,h,cx,cy,z0,color,rough){var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshStandardMaterial({color:new THREE.Color(color).convertSRGBToLinear(),roughness:rough,metalness:0.05}));m.position.copy(P(cx,cy,z0+h/2));m.castShadow=true;m.receiveShadow=true;return m;}
     cmpG.add(slab(85.6,53.98,0.76,-40,-68,0,'#2f6fb0',0.5));
     cmpG.add(slab(71.5,146.7,7.8,-140,-18,0,'#1b1c1f',0.4));cmpG.add(slab(65.5,139,0.15,-140,-18,7.8,'#39414f',0.2));
@@ -1227,7 +1227,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   var P3J={label:'ジョイスティック',name:'ジョイスティック',desc:PARTS[2][3],a:partItems[2].anchors[0]};
   function p3t(size,other,top){return {label:'トラックボール',name:'トラックボール（別売り）',desc:'ジョイスティックと交換できる、別売りの Reex トラックボールユニットです。ボールを、3つのベアリングで支えています。表示しているのは、直径'+size+'mmのボール用のケースです。直径'+other+'mmのボール用のケースもあり、どちらにも対応しています。交換後は、トラックボール用のファームウェアを書き込んでください。',a:P(data.meta.tb[0],data.meta.tb[1],top+0.1)};}
   var P3T25=p3t(25,34,data.meta.tbtop['25']),P3T34=p3t(34,25,data.meta.tbtop['34']);
-  function setPart3(){var o=partItems[2],t=!state.tb?P3J:(state.tbs==='34'?P3T34:P3T25);if(o.cur===t)return;o.cur=t;o.el.querySelector('.nm').textContent='　'+t.label;o.el.setAttribute('aria-label','3 '+t.label);o.li.querySelector('b').textContent=t.name;o.li.querySelector('p').textContent=fmtDesc(t.desc);o.anchors[0]=t.a;}
+  function setPart3(){var o=partItems[2],t=!tbOn()?P3J:(state.tbs==='34'?P3T34:P3T25);if(o.cur===t)return;o.cur=t;o.el.querySelector('.nm').textContent='　'+t.label;o.el.setAttribute('aria-label','3 '+t.label);o.li.querySelector('b').textContent=t.name;o.li.querySelector('p').textContent=fmtDesc(t.desc);o.anchors[0]=t.a;}
   var pv=new THREE.Vector3();
   function updParts(){
     var on=state.parts&&!state.kit;lead.style.display=on?'block':'none';
@@ -1275,13 +1275,14 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       else if(m.name==='switches'||m.name==='stems'){if(capId==='white')m.material.color.set(m.name==='switches'?'#8C8F95':'#7B7E84').convertSRGBToLinear().multiplyScalar(0.22);else m.material.color.copy(m.userData.c0);}
     });
   }
+  function tbOn(){return !!state.tb&&!(state.kit&&state.deliv);}
   function apply(){
     function vis(tag,on){(byTag[tag]||[]).forEach(function(m){m.visible=on;});}
-    vis('asm',!state.kit);vis('kit',state.kit);vis('sw',state.sw&&!state.kit);vis('caps',state.caps&&state.sw&&!state.kit);vis('palm',state.palm&&!state.kit);vis('cover',state.cover);vis('joy',!state.tb);vis('tb',!!state.tb);vis('tb25',!!state.tb&&state.tbs!=='34');vis('tb34',!!state.tb&&state.tbs==='34');paint();
-    var slot=0;['cyl','step','bowl'].forEach(function(k){var on=state.knob===k;(byTag['knob_'+k]||[]).forEach(function(m){if(on){m.visible=true;m.position.set(0,0,0);}else if(state.kit){m.visible=true;m.position.set(122+slot*52-data.meta.enc[0],-(5+data.meta.kz),-(36-data.meta.enc[1]));}else{m.visible=false;}});if(!on)slot++;});(byTag.kit||[]).forEach(function(m){if(m.name.indexOf('kit_knob_')===0)m.visible=false;});
+    vis('asm',!state.kit);vis('kit',state.kit);vis('sw',state.sw&&!state.kit);vis('caps',state.caps&&state.sw&&!state.kit);vis('palm',state.palm&&!state.kit);vis('cover',state.cover);vis('joy',!tbOn());vis('tb',tbOn());vis('tb25',tbOn()&&state.tbs!=='34');vis('tb34',tbOn()&&state.tbs==='34');paint();
+    var slot=0;['cyl','step','bowl'].forEach(function(k){var on=state.knob===k&&!state.kit;(byTag['knob_'+k]||[]).forEach(function(m){if(on){m.visible=true;m.position.set(0,0,0);}else if(state.kit){m.visible=true;m.position.set(112+slot*50-data.meta.enc[0],-(5+data.meta.kz),-(36-data.meta.enc[1]));}else{m.visible=false;}});if(!on)slot++;});(byTag.kit||[]).forEach(function(m){if(m.name.indexOf('kit_knob_')===0)m.visible=false;});
     if(state.parts&&(state.kit||state.dim||state.cmp||state.palm||!state.sw||!state.caps||state.knob==='none'))state.parts=false;if(!state.parts)selPart(-1);
     plist.hidden=!state.parts;document.body.classList.toggle('parts',state.parts);var see=state.parts&&(partSel===4||partSel===5);(byTag.cover||[]).forEach(function(m){m.material.transparent=see;m.material.opacity=see?0.28:1;m.material.depthWrite=!see;m.castShadow=!see;m.material.needsUpdate=true;});
-    if(cur==='kit'&&!state.kit)cur='';hJ.visible=!state.tb;hT25.visible=!!state.tb&&state.tbs!=='34';hT34.visible=!!state.tb&&state.tbs==='34';setPart3();dimG.visible=state.dim&&!state.kit;cmpG.visible=state.cmp&&!state.kit;
+    if(cur==='kit'&&!state.kit)cur='';hJ.visible=!tbOn();hT25.visible=tbOn()&&state.tbs!=='34';hT34.visible=tbOn()&&state.tbs==='34';setPart3();dimG.visible=state.dim&&!state.kit;cmpG.visible=state.cmp&&!state.kit;
     sync();
   }
   var shots=[
@@ -1294,7 +1295,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   ];
   var cur='all',anim=null;
   function go(s){
-    cur=s.id;Object.keys(s.set).forEach(function(k){state[k]=s.set[k];});state.deliv=(s.id==='kit');if(state.palm)state.cmp=false;if(state.kit){state.dim=false;state.cmp=false;state.tb=false;}apply();
+    cur=s.id;Object.keys(s.set).forEach(function(k){state[k]=s.set[k];});state.deliv=(s.id==='kit');if(state.palm)state.cmp=false;if(state.kit){state.dim=false;state.cmp=false;}apply();
     say(s.note);
     var p0=camera.position.clone(),t0=controls.target.clone(),p1=new THREE.Vector3().fromArray(s.pos),t1=new THREE.Vector3().fromArray(s.tgt);
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1309,12 +1310,12 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   chips.push(chip(o,'キースイッチ',function(){if(state.kit){state.kit=false;state.sw=true;}else{state.sw=!state.sw;if(!state.sw)state.caps=false;}say(baseNote());apply();},function(){return state.sw&&!state.kit;}));
   chips.push(chip(o,'キーキャップ',function(){if(state.kit){state.kit=false;state.sw=true;state.caps=true;}else{state.caps=!state.caps;if(state.caps)state.sw=true;}say(baseNote());apply();},function(){return state.caps&&state.sw&&!state.kit;}));
   chips.push(chip(o,'パームレスト',function(){if(state.kit){state.kit=false;state.palm=true;}else{state.palm=!state.palm;}if(state.palm)state.cmp=false;say(state.palm?NOTE.palm:baseNote());apply();},function(){return state.palm&&!state.kit;}));
-  chips.push(chip(o,'一式を並べる',function(){state.kit=!state.kit;state.deliv=false;if(cur==='kit')cur='';if(state.kit){state.dim=false;state.cmp=false;state.tb=false;}say(baseNote());apply();},function(){return state.kit;}));
+  chips.push(chip(o,'一式を並べる',function(){state.kit=!state.kit;state.deliv=false;if(cur==='kit')cur='';if(state.kit){state.dim=false;state.cmp=false;}else{state.sw=false;state.caps=false;}say(baseNote());apply();},function(){return state.kit;}));
   chips.push(chip(o,'寸法',function(){var wasKit=state.kit;if(wasKit){state.kit=false;state.dim=true;}else{state.dim=!state.dim;}if(state.dim){if(state.knob==='none')state.knob='cyl';if(wasKit||stage.clientWidth/stage.clientHeight<0.8)flyTo(state.cmp?[-340,480,540]:[-285,355,425],state.cmp?[-45,0,22]:[0,6,22]);}say(state.dim?NOTE.dim:baseNote());apply();},function(){return state.dim&&!state.kit;}));
   chips.push(chip(o,'サイズ比較',function(){if(state.kit){state.kit=false;state.cmp=true;}else{state.cmp=!state.cmp;}if(state.cmp){state.palm=false;flyTo([-340,480,540],[-45,0,22]);}say(state.cmp?NOTE.cmp:baseNote());apply();},function(){return state.cmp&&!state.kit;}));
-  var un=document.getElementById('units');chips.push(chip(un,'ジョイスティック',function(){state.tb=false;say(NOTE.joy);apply();},function(){return !state.tb;}));chips.push(chip(un,'トラックボール 25mm',function(){state.tb=true;state.tbs='25';state.kit=false;say(NOTE.tb25);apply();},function(){return !!state.tb&&state.tbs!=='34';}));chips.push(chip(un,'トラックボール 34mm',function(){state.tb=true;state.tbs='34';state.kit=false;say(NOTE.tb34);apply();},function(){return !!state.tb&&state.tbs==='34';}));
+  var un=document.getElementById('units');chips.push(chip(un,'ジョイスティック',function(){if(state.deliv){state.deliv=false;cur='';}state.tb=false;say(NOTE.joy);apply();},function(){return !tbOn();}));chips.push(chip(un,'トラックボール 25mm',function(){if(state.deliv){state.deliv=false;cur='';}state.tb=true;state.tbs='25';say(NOTE.tb25);apply();},function(){return tbOn()&&state.tbs!=='34';}));chips.push(chip(un,'トラックボール 34mm',function(){if(state.deliv){state.deliv=false;cur='';}state.tb=true;state.tbs='34';say(NOTE.tb34);apply();},function(){return tbOn()&&state.tbs==='34';}));
   var kn=document.getElementById('knobs');
-  [['cyl','40mm 円柱型ノブ'],['step','25mm すり鉢型ノブ'],['bowl','46mm 段付き型ノブ'],['none','外す']].forEach(function(k){chips.push(chip(kn,k[1],function(){state.knob=k[0];if(k[0]==='none')state.dim=false;say(NOTE.knob[k[0]]);apply();},function(){return state.knob===k[0];}));});
+  [['cyl','40mm 円柱型ノブ'],['step','25mm すり鉢型ノブ'],['bowl','46mm 段付き型ノブ'],['none','外す']].forEach(function(k){chips.push(chip(kn,k[1],function(){if(state.kit){if(k[0]==='none')return;state.kit=false;state.deliv=false;if(cur==='kit')cur='';state.sw=false;state.caps=false;}state.knob=k[0];if(k[0]==='none')state.dim=false;say(NOTE.knob[k[0]]);apply();},function(){return (state.kit?'none':state.knob)===k[0];}));});
     (function(){
     var cr=document.getElementById('colors');
     var grp=null;
@@ -1326,6 +1327,8 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     swatch('ブラック','#353538',function(){if(state.deliv){state.deliv=false;cur='';}state.cap='black';say('キーキャップの色：ブラック');apply();},function(){return (state.kit&&state.deliv)||state.cap!=='white';});
     swatch('ホワイト','#F1F0EC',function(){if(state.deliv){state.deliv=false;cur='';}state.cap='white';say('キーキャップの色：ホワイト（見分けやすいよう、キースイッチは灰色で表示）');apply();},function(){return !(state.kit&&state.deliv)&&state.cap==='white';});
   })();
+  chips.push(chip(document.getElementById('shots'),'フリー',function(){anim=null;cur='';sync();},function(){return cur==='';}));
+  chips.push(chip(document.getElementById('opts'),'本体のみ',function(){state.parts=false;state.sw=false;state.caps=false;state.palm=false;state.kit=false;state.deliv=false;state.dim=false;state.cmp=false;if(cur==='kit')cur='';say(baseNote());apply();},function(){return !state.parts&&!state.sw&&!state.caps&&!state.palm&&!state.kit&&!state.dim&&!state.cmp;}));
   function sync(){chips.forEach(function(b){b.setAttribute('aria-pressed',b._p()?'true':'false');});}
   controls.addEventListener('start',function(){anim=null;cur='';sync();});
   function resize(){var w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;
