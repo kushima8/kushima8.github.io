@@ -36,8 +36,8 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .sw[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px;border-color:#fff}
 .lab2{flex:0 0 auto;font-size:11px;color:var(--ink-soft);margin-right:2px}
 #colors{padding:4px 2px;flex-wrap:wrap;overflow:visible;row-gap:8px}
-.grp{display:inline-flex;align-items:center;gap:6px;margin-right:10px}
-@media (max-width:520px){#plist{max-height:24vh!important}}
+.grp{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;margin-right:10px}
+@media (max-width:520px){#plist{max-height:24vh!important}.sw{width:25px;height:25px}.grp{gap:5px;margin-right:6px}.foot{font-size:10px!important;line-height:1.45!important}}
 #plist{flex:0 0 auto;max-height:34vh;overflow-y:auto;margin:0;padding:8px 12px;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:4px 14px;background:var(--panel);border-top:1px solid var(--line)}
 #plist[hidden]{display:none}
 #plist li{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:start;align-content:start;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:12.5px;line-height:1.5;color:var(--ink)}
@@ -1253,8 +1253,9 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   var state={sw:true,caps:true,palm:false,kit:false,cover:true,knob:'cyl',dim:false,cmp:false,parts:true,tb:false,tbs:'25',body:'charcoal',cap:'black',deliv:false};
   // ---- 本体（3Dプリント部品）とキーキャップの色
   // [id, 名前, PLAマットの公式の色コード, 画面で使う色]。チャコールは元のモデルの色のまま描く。
-  var BODY=[['charcoal','チャコール','#000000',null,1],['ivory','アイボリーホワイト','#FFFFFF','#E9E7E1',0.36],['ash','アッシュグレー','#9B9EA0','#9B9EA0',0.22],['dblue','ダークブルー','#042F56','#042F56',0.22],['tan','デザートタン','#E8DBB7','#E8DBB7',0.26],['dgreen','ダークグリーン','#68724D','#68724D',0.22],['pink','サクラピンク','#E8AFCF','#E8AFCF',0.26]];
-  // 5番目の値は明るさの補正。照明を黒い本体が見えるよう強くしているので、明るい色はそのぶん抑えて描く。
+  var BODY=[['charcoal','チャコール','#000000',null,null],['ash','アッシュグレー','#9B9EA0','#737A84',[0.0239,0.0275,0.0320]],['ivory','アイボリーホワイト','#FFFFFF','#DBDAD8',[0.1928,0.1851,0.1710]],['dblue','ダークブルー','#042F56','#2A3956',[0.0004,0.0017,0.0098]],['ice','アイスブルー','#A3D8E1','#9EDCE8',[0.0223,0.1789,0.2537]],['dgreen','ダークグリーン','#68724D','#4D5838',[0.0075,0.0110,0.0014]],['apple','アップルグリーン','','#CDE28B',[0.1112,0.2142,0.0154]],['dred','ダークレッド','#BB3D43','#9A3437',[0.0507,0.0006,0.0007]],['pink','サクラピンク','#E8AFCF','#DDA4B9',[0.1520,0.0566,0.0847]],['tan','デザートタン','#E8DBB7','#BCAF82',[0.0906,0.0717,0.0286]]];
+  // [id, 名前, 公式の色コード, アイコンの色（ストアの印刷見本の写真から）, 描画に使う色（リニア値）]。
+  // 描画の色は、画面上の明るい面がストアの印刷見本の写真の色に合うように、実測で合わせ込んだ値。
   // 色を変える部品と、部品ごとの明るさの差（プレートは少し明るく、カバーとノブは少し暗く）
   var PRINTED={case:1,plate_key:1.07,plate_ctrl:1.07,kit_plate_key:1.07,kit_plate_ctrl:1.07,mcu_cover:0.9,joy_cover:0.9,knob_cyl:0.84,knob_step:0.84,knob_bowl:0.84,tb25_case:0.9,tb34_case:0.9,tb_spacer:0.9};
   function paint(){
@@ -1270,7 +1271,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
       if(f){if(m.userData.r0===undefined)m.userData.r0=m.material.roughness;
         // チャコールは、商品写真の黒に合わせた単色（部品ごとの濃淡なし、反射も抑える）
         if(!b||!b[3]){m.material.color.set('#0b0b0c').convertSRGBToLinear();m.material.roughness=1;}
-        else{m.material.color.set(b[3]).convertSRGBToLinear().multiplyScalar(f*b[4]);m.material.roughness=m.userData.r0;}}
+        else{m.material.color.setRGB(b[4][0],b[4][1],b[4][2]);m.material.roughness=1;}}
       else if(m.name==='keycaps'){if(m.userData.r0===undefined)m.userData.r0=m.material.roughness;if(capId==='white'){m.material.color.set('#E9E8E3').convertSRGBToLinear().multiplyScalar(0.36);m.material.roughness=m.userData.r0;}else{m.material.color.set('#101011').convertSRGBToLinear();m.material.roughness=1;}}
       else if(m.name==='switches'||m.name==='stems'){if(capId==='white')m.material.color.set(m.name==='switches'?'#8C8F95':'#7B7E84').convertSRGBToLinear().multiplyScalar(0.22);else m.material.color.copy(m.userData.c0);}
     });
