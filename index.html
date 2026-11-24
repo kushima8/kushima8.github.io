@@ -34,9 +34,10 @@
     --ink-soft: #4b5b70;
     --rule: #b9c3cc;
     --brass: #8a6412;
+    --brass-ink: #6e4e0a;
     --brass-bg: #f0e3bf;
     --ok: #1f6b4a;
-    --off: #6d7783;
+    --off: #5d6772;
     --sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   }
@@ -49,6 +50,7 @@
       --ink-soft: #9fb0c2;
       --rule: #2c3d55;
       --brass: #e0b95a;
+      --brass-ink: #e0b95a;
       --brass-bg: #3a3118;
       --ok: #6fd0a2;
       --off: #8493a5;
@@ -67,6 +69,10 @@
   a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
   a:hover { color: var(--brass); }
   a:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+  /* 日本語を文節の切れ目で折り返し、行末に1〜2字だけ残る行を減らす（対応しないブラウザーでは従来どおり） */
+  p, li, h1, h2, h3, .kind, figcaption { word-break: auto-phrase; }
+  p, li { text-wrap: pretty; }
+  h2, h3 { text-wrap: balance; }
   img { max-width: 100%; height: auto; display: block; }
   .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
 
@@ -109,6 +115,7 @@
   }
   .lead-body { display: grid; gap: 28px; margin-top: 28px; }
   .lead-body p { margin: 0; max-width: 34em; }
+  .lead-body p.next { margin-top: 14px; }
   .spec { margin: 0; padding: 0; list-style: none; font-size: 0.95rem; border-top: 1px solid var(--rule); }
   .spec li { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
   .spec span:first-child { color: var(--ink-soft); }
@@ -134,6 +141,7 @@
   .collab .wrap { display: grid; gap: 24px; align-items: center; }
   .collab h2 { margin: 0 0 8px; font-size: 1.15rem; }
   .collab p { margin: 0; max-width: 30em; }
+  .collab p.next { margin-top: 10px; }
   .collab img { border: 1px solid var(--rule); }
   @media (min-width: 820px) { .collab .wrap { grid-template-columns: 1fr 1.3fr; gap: 48px; } }
 
@@ -157,11 +165,15 @@
     display: inline-block; margin-top: 10px; padding: 2px 10px;
     font-family: var(--mono); font-size: 0.78rem; border: 1px solid currentColor;
   }
-  .status.new { color: var(--brass); background: var(--brass-bg); border-color: var(--brass); }
+  .status.new { color: var(--brass-ink); background: var(--brass-bg); border-color: var(--brass); }
   .status.on { color: var(--ok); }
   .status.end { color: var(--off); }
+  /* 狭い画面では、製品名 → 写真 → 説明 の順に並べ、写真で製品を見分けやすくする */
+  .row > .thumb { order: 1; }
+  .row > div:nth-child(2) { order: 2; }
   @media (min-width: 820px) {
     .row { grid-template-columns: 220px 1fr 240px; align-items: start; }
+    .row > .thumb, .row > div:nth-child(2) { order: 0; }
   }
 
   .fw { margin-top: 36px; padding: 22px 24px; background: var(--panel); border: 1px solid var(--rule); }
@@ -226,7 +238,7 @@
 イラストを描いている最中の「右手以外」の操作を、左手の手元に集められます。<br>
 多くの絵描きに愛用されながら生産を終えた左手用キーパッドの配置を引き継ぎ、そこにダイヤルを加えました。<br>
 開発には、すこやかむいむい氏の協力をいただきました。</p>
-          <p style="margin-top:14px">専用ドライバーは不要で、キーの割り当てはブラウザから変更できます。<br>
+          <p class="next">専用ドライバーは不要で、キーの割り当てはブラウザから変更できます。<br>
 ジョイスティックのモードを切り替えれば、ゲームコントローラーとしても使えます。</p>
           <div class="links">
             <div class="grp">
@@ -266,7 +278,7 @@
         <h2>開発協力：すこやかむいむい</h2>
         <p>日々絵を描く立場から開発にご協力をいただきました。<br>
 紹介イラストもご本人の描き下ろしです。</p>
-        <p style="margin-top:10px"><a href="https://x.com/sukoyakamuimui">@sukoyakamuimui</a></p>
+        <p class="next"><a href="https://x.com/sukoyakamuimui">@sukoyakamuimui</a></p>
       </div>
       <img src="https://github.com/user-attachments/assets/3a695b34-dc03-4c14-abc1-19e77574737c" alt="すこやかむいむい氏による GBC24 の紹介イラスト" loading="lazy">
     </div>

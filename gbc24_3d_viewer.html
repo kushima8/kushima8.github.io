@@ -60,10 +60,19 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .lead circle{fill:#c8321e;stroke:#fff;stroke-width:1}
 @media (max-width:520px){.tag{font-size:11px;padding:4px 7px}}
 #err{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:24px;text-align:center;font-size:14px;color:#17181b}
+/* 紹介ページへ戻るリンク（右上。左上の見出しと同じ帯に置き、部品名のラベルと重ならない） */
+#back{position:absolute;right:14px;top:12px;font-size:12px;line-height:1.5;color:#17181b;text-decoration:underline;text-underline-offset:2px;padding:2px 0}
+#back:hover{color:#c8321e}
+#back:focus-visible{outline:2px solid #c8321e;outline-offset:2px}
+/* 横にはみ出したボタンの列は、隠れている側の端を薄くして、横に送れることを示す */
+.row.more-r{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 44px),transparent)}
+.row.more-l{-webkit-mask-image:linear-gradient(to right,transparent,#000 44px);mask-image:linear-gradient(to right,transparent,#000 44px)}
+.row.more-l.more-r{-webkit-mask-image:linear-gradient(to right,transparent,#000 44px,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(to right,transparent,#000 44px,#000 calc(100% - 44px),transparent)}
 </style>
 </head>
 <body>
 <div id="stage">
+  <a id="back" href="./">← GBC24 の紹介へ</a>
   <div id="head"><h1>GBC24 3Dビューア</h1><p>ドラッグで回転、ピンチやホイールで拡大・縮小</p></div>
   <div id="note"></div>
   <div id="err">3D表示を開始できませんでした。WebGLが使えるブラウザで開いてください。</div>
@@ -1344,6 +1353,18 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     controls.update();renderer.render(scene,camera);updLabels();updParts();requestAnimationFrame(tick);
   }
   tick();
+})();
+</script>
+<script>
+/* ボタンの列が横にはみ出しているとき、続きがある側に印を付ける */
+(function(){
+  var rows=[].slice.call(document.querySelectorAll('#panel .row:not(#colors)'));
+  function upd(r){var max=r.scrollWidth-r.clientWidth;r.classList.toggle('more-l',max>2&&r.scrollLeft>2);r.classList.toggle('more-r',max>2&&r.scrollLeft<max-2);}
+  function all(){rows.forEach(upd);}
+  rows.forEach(function(r){r.addEventListener('scroll',function(){upd(r);},{passive:true});});
+  window.addEventListener('resize',all);
+  if(window.ResizeObserver)rows.forEach(function(r){new ResizeObserver(function(){upd(r);}).observe(r);});
+  all();
 })();
 </script>
 </body>
