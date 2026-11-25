@@ -119,6 +119,9 @@
   .spec { margin: 0; padding: 0; list-style: none; font-size: 0.95rem; border-top: 1px solid var(--rule); }
   .spec li { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
   .spec span:first-child { color: var(--ink-soft); }
+  /* 仕様表の見出し。左列＝届くもの・用意するもの、右列＝本体の仕様 */
+  .spec-h { margin: 0 0 8px; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.04em; }
+  .links + .spec-h { margin-top: 36px; }
   .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
   .btn {
     display: inline-block; padding: 10px 18px; border: 1px solid var(--ink);
@@ -255,27 +258,33 @@
             <a class="btn" href="https://github.com/kushima8/GBC24">説明書・3Dデータ</a>
             </div>
           </div>
-          <p class="before">ご購入の前に、<a href="https://github.com/kushima8/GBC24/blob/main/Documents/buildguide_pre-soldered.md">説明書（ビルドガイド）</a>を必ずお読みください。</p>
-        </div>
-        <ul class="spec">
+          <h2 class="spec-h">届くもの・用意するもの</h2>
+          <ul class="spec">
           <li><span>頒布形態</span><span>組み立て済み（はんだ付け、ファームウェア書き込み済）<br>
 キースイッチとキーキャップを取り付け、USBケーブルで接続して使用</span></li>
           <li><span>内容物</span><span>本体<br>トッププレート2枚（キー側・親指側）<br>ノブ3種（40mm円柱型、25mmすり鉢型、46mm段付き型）<br>ゴム足8個</span></li>
           <li><span>別途用意</span><span>キースイッチ24個<br>キーキャップ24個<br>USB Type-Cケーブル（データ通信対応）</span></li>
           <li><span>推奨</span><span>市販の小型パームレスト（別途用意）との併用</span></li>
-          <li><span>キー</span><span>ロープロファイルメカニカル 24キー<br>Kailh Choc V1・V2系統に対応（スイッチ交換可）</span></li>
-          <li><span>操作部</span><span>親指のジョイスティック（4方向へのキー割り当て、マウスカーソル操作）<br>回転ダイヤル（押し込み対応）</span></li>
-          <li><span>ゲームモード</span><span>ジョイスティックをゲームパッドとして認識<br>Windowsのみ、DirectInput方式（XInput非対応）</span></li>
-          <li><span>保守</span><span>キースイッチはホットスワップで交換可能<br>マイコン（USB端子部）はコンスルー接続で、容易に交換可能<br>ジョイスティックはモジュール式。ドリフトやチャタリングが発生しても、容易に交換可能</span></li>
-          <li><span>設定</span><span>PCのブラウザ（ChromeまたはEdge）から変更（Remap／VIA）<br>割り当ては4パターンまで保存</span></li>
-          <li><span>接続</span><span>USB Type-C（有線）</span></li>
-          <li><span>対応OS</span><span>Windows／macOS／iPadOS<br>iPadはUSB Type-C端子を搭載した機種。割り当ての変更にはPCが必要</span></li>
-          <li><span>動作確認</span><span>PC：Adobe Photoshop／CLIP STUDIO PAINT<br>iPad：Procreate／CLIP STUDIO PAINT</span></li>
-          <li><span>大きさ</span><span>幅 約170mm × 奥行 約145mm × 高さ 約33mm（ノブ装着時・ゴム足を除く）</span></li>
-          <li><span>重量</span><span>約230g（キースイッチ・キーキャップ・ノブ装着時）</span></li>
-          <li><span>ファームウェア</span><span><a href="https://github.com/kushima8/qmk_firmware">QMK</a>（Remap／VIA 対応）<br><a href="https://github.com/kushima8/vial-qmk">Vial</a> 版ファームウェアも用意</span></li>
-          <li><span>3Dデータ</span><span>ケースなどの <a href="https://github.com/kushima8/GBC24/tree/main/STL">3Dデータ（STL）</a>を公開（CC BY-NC-SA 4.0）<br>頒布終了後にすべての設計データを公開予定</span></li>
-        </ul>
+          </ul>
+          <p class="before">ご購入の前に、<a href="https://github.com/kushima8/GBC24/blob/main/Documents/buildguide_pre-soldered.md">説明書（ビルドガイド）</a>を必ずお読みください。</p>
+        </div>
+        <div>
+          <h2 class="spec-h">仕様</h2>
+          <ul class="spec">
+            <li><span>キー</span><span>ロープロファイルメカニカル 24キー<br>Kailh Choc V1・V2系統に対応（スイッチ交換可）</span></li>
+            <li><span>操作部</span><span>親指のジョイスティック（4方向へのキー割り当て、マウスカーソル操作）<br>回転ダイヤル（押し込み対応）</span></li>
+            <li><span>ゲームモード</span><span>ジョイスティックをゲームパッドとして認識<br>Windowsのみ、DirectInput方式（XInput非対応）</span></li>
+            <li><span>保守</span><span>キースイッチはホットスワップで交換可能<br>マイコン（USB端子部）はコンスルー接続で、容易に交換可能<br>ジョイスティックはモジュール式。ドリフトやチャタリングが発生しても、容易に交換可能</span></li>
+            <li><span>設定</span><span>PCのブラウザ（ChromeまたはEdge）から変更（Remap／VIA）<br>割り当ては4パターンまで保存</span></li>
+            <li><span>接続</span><span>USB Type-C（有線）</span></li>
+            <li><span>対応OS</span><span>Windows／macOS／iPadOS<br>iPadはUSB Type-C端子を搭載した機種。割り当ての変更にはPCが必要</span></li>
+            <li><span>動作確認</span><span>PC：Adobe Photoshop／CLIP STUDIO PAINT<br>iPad：Procreate／CLIP STUDIO PAINT</span></li>
+            <li><span>大きさ</span><span>幅 約170mm × 奥行 約145mm × 高さ 約33mm（ノブ装着時・ゴム足を除く）</span></li>
+            <li><span>重量</span><span>約230g（キースイッチ・キーキャップ・ノブ装着時）</span></li>
+            <li><span>ファームウェア</span><span><a href="https://github.com/kushima8/qmk_firmware">QMK</a>（Remap／VIA 対応）<br><a href="https://github.com/kushima8/vial-qmk">Vial</a> 版ファームウェアも用意</span></li>
+            <li><span>3Dデータ</span><span>ケースなどの <a href="https://github.com/kushima8/GBC24/tree/main/STL">3Dデータ（STL）</a>を公開（CC BY-NC-SA 4.0）<br>頒布終了後にすべての設計データを公開予定</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
